@@ -10,17 +10,17 @@ label=""
 unmount=false
 
 while getopts l:u opt; do
-    case $opt in
-      l)
-        label="$OPTARG"
-        ;;
-      u)
-        unmount=true
-        ;;
-      *)
-        exit 1
-        ;;
-    esac
+  case $opt in
+    l)
+      label="$OPTARG"
+      ;;
+    u)
+      unmount=true
+      ;;
+    *)
+      exit 1
+      ;;
+  esac
 done
 
 if [[ -z "$label" ]]; then
