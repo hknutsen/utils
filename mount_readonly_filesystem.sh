@@ -35,11 +35,13 @@ mount_point="/run/media/$user_name/$label"
 if [[ "$unmount" == true ]]; then
   echo "Unmounting $file_system from $mount_point"
   sudo umount "$mount_point"
-else
-  if [[ ! -d "$mount_point" ]]; then
-    echo "Creating directory $mount_point"
-    sudo mkdir "$mount_point"
-  fi
-  echo "Mounting $file_system to $mount_point"
-  sudo mount -r "$file_system" "$mount_point"
+  exit 0
 fi
+
+if [[ ! -d "$mount_point" ]]; then
+  echo "Creating directory $mount_point"
+  sudo mkdir "$mount_point"
+fi
+
+echo "Mounting $file_system to $mount_point"
+sudo mount -r "$file_system" "$mount_point"
