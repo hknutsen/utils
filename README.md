@@ -1,2 +1,3 @@
-# utils
-My utility scripts for automating tasks on my computer
+# Henrik's utility scripts
+
+My utility scripts for automating tasks on Fedora Linux.
