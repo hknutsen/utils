@@ -40,7 +40,7 @@ fi
 
 if [[ ! -d "$mount_point" ]]; then
   echo "Creating directory $mount_point"
-  sudo mkdir "$mount_point"
+  sudo mkdir -p "$mount_point"
 fi
 
 echo "Mounting $file_system to $mount_point"
