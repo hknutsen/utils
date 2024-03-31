@@ -27,6 +27,6 @@ for jpeg_file in "${jpeg_files[@]}"; do
     echo "$target_file already exists"
   else
     echo "Converting $jpeg_file to $resolution"
-    convert "$jpeg_file" -resize "$resolution" "$target_file"
+    convert "$jpeg_file" -resize "$resolution" -quality 92 "$target_file"
   fi
 done
