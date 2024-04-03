@@ -38,5 +38,5 @@ for flac_file in "${flac_files[@]}"; do
     mkdir -p "$parent_dir"
   fi
 
-  sox "$flac_file" -b 16 "$output_file" rate "44.1k" dither
+  sox -V "$flac_file" -b 16 "$output_file" rate "44.1k"
 done
