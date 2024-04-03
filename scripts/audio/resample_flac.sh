@@ -20,10 +20,6 @@ output_dir=$2
 
 cd "$source_dir" || exit
 
-if [[ ! -d "$output_dir" ]]; then
-  mkdir "$output_dir"
-fi
-
 readarray -t flac_files < <(find . -name "*.flac")
 
 for flac_file in "${flac_files[@]}"; do
