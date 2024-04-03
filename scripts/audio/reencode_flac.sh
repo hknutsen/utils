@@ -11,7 +11,7 @@
 #   Source directory
 #
 # Usage:
-#   ./encode_flac.sh /mnt/Data/Music/
+#   ./reencode_flac.sh /mnt/Data/Music/
 
 set -eu
 
