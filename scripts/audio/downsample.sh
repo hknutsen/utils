@@ -1,17 +1,24 @@
 #! /bin/bash
 
-# Downsample FLAC files in source directory to 16-bit/44.1kHz.
-
+# Reads audio from lossless FLAC files in the source directory and downsamples
+# to 16-bit/44.1kHz (CD quality) FLAC files in the output directory.
+#
+# Prereqs:
+#   sox
+#
 # Arguments:
 #   Source directory
+#   Output directory
+#
+# Usage:
+#   ./downsample /mnt/Data/Music/ ~/Music/
 
 set -eu
 
 source_dir=$1
+output_dir=$2
 
 cd "$source_dir" || exit
-
-output_dir="downsample"
 
 if [[ ! -d "$output_dir" ]]; then
   mkdir "$output_dir"

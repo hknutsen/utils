@@ -1,9 +1,17 @@
 #! /bin/bash
 
-# Re-encode FLAC files in source directory using the latest version of the native FLAC encoder.
-
+# Reads audio from lossless FLAC files in the source directory
+# and re-encodes using the latest version of the FLAC encoder.
+# Remember to always backup your FLAC files before re-encoding.
+#
+# Prereqs:
+#   flac
+#
 # Arguments:
 #   Source directory
+#
+# Usage:
+#   ./encode_flac.sh /mnt/Data/Music/
 
 set -eu
 
