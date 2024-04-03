@@ -8,7 +8,7 @@
 #
 # Arguments:
 #   Source directory
-#   Output directory
+#   Output directory (relative to source directory)
 #
 # Usage:
 #   ./encode_opus.sh /mnt/Data/Music/ ~/Music/
@@ -20,20 +20,21 @@ output_dir=$2
 
 cd "$source_dir" || exit
 
-if [[ ! -d "$output_dir" ]]; then
-  mkdir -p "$output_dir"
-fi
+readarray -t flac_files < <(find . -name "*.flac")
 
-readarray -t files_array < <(find . -name "*.flac")
+for flac_file in "${flac_files[@]}"; do
+  opus_file="$output_dir/${flac_file/"%.flac"/".opus"}"
+  if [[ -f "$opus_file" ]]; then
+    echo "$opus_file already exists"
+    continue
+  fi
 
-for file in "${files_array[@]}"; do
-  output_file="$output_dir/$file"
-  output_dirname=$(dirname "$output_file")
-  if [[ ! -d "$output_dirname" ]]; then
-    mkdir -p "$output_dirname"
+  parent_dir=$(dirname "$opus_file")
+  if [[ ! -d "$parent_dir" ]]; then
+    mkdir -p "$parent_dir"
   fi
 
   # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
-  opusenc --bitrate 128 --vbr "$file" "${output_file/".flac"/".opus"}"
+  opusenc --bitrate 128 --vbr "$flac_file" "$opus_file"
 done
