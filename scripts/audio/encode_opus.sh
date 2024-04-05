@@ -23,7 +23,7 @@ cd "$source_dir" || exit
 readarray -t flac_files < <(find . -name "*.flac")
 
 for flac_file in "${flac_files[@]}"; do
-  opus_file="$output_dir/${flac_file/"%.flac"/".opus"}"
+  opus_file="$output_dir/${flac_file/".flac"/".opus"}"
   if [[ -f "$opus_file" ]]; then
     echo "$opus_file already exists"
     continue
