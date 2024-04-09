@@ -38,7 +38,7 @@ for source_file in "${source_files[@]}"; do
     echo "Cover file $cover_file already exists"
   else
     echo "Converting $source_file to $cover_file"
-    convert "$source_file" -resize 1200x1200 -quality 92 "$cover_file"
+    convert "$source_file" -resize 600x600 -quality 92 "$cover_file"
     # 92 is the default quality, but it's set explicitly to clarify what's being done (resize with quality 92)
   fi
 done
