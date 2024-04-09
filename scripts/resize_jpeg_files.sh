@@ -1,32 +1,32 @@
 #! /bin/bash
 
-# Resize JPEG files to 600x600 thumbnails.
+# Convert source image to 600x600 cover art in the target directory.
 
 # Arguments
-#   Source directory
+#   Source file
+#   Target directory
 
 set -eu
 
-source_dir=$1
+source_file=$1
+target_dir=$2
 
-cd "$source_dir" || exit
-
-readarray -t jpeg_files < <(find -- *.jpg)
-
-resolution="600x600"
-target_dir="thumb_$resolution"
-
-if [[ ! -d "$target_dir" ]]; then
-  mkdir "$target_dir"
+if [[ ! -f "$source_file" ]]; then
+  echo "Source file $source_file does not exist"
+  exit 1
 fi
 
-for jpeg_file in "${jpeg_files[@]}"; do
-  target_file="$target_dir/$jpeg_file"
+if [[ ! -d "$target_dir" ]]; then
+  echo "Target directory $target_dir does not exist"
+  exit 1
+fi
 
-  if [[ -f "$target_file" ]]; then
-    echo "$target_file already exists"
-  else
-    echo "Converting $jpeg_file to $resolution"
-    convert "$jpeg_file" -resize "$resolution" -quality 92 "$target_file"
-  fi
-done
+target_file="$target_dir/cover.jpg"
+
+if [[ -f "$target_file" ]]; then
+  echo "$target_file already exists"
+  exit 1
+fi
+
+echo "Converting $source_file to $target_file"
+convert "$source_file" -resize 600x600 -quality 92 "$target_file"
