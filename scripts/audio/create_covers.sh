@@ -1,9 +1,15 @@
 #! /bin/bash
 
+# Convert images in cover art directory to "cover.jpg" files.
+# Source cover art path: /mnt/Data/Pictures/Cover Art/<album_name>.jpg
+# Destination album path: /mnt/Data/Music/<album_name>
+
 set -eu
 
 source_dir="/mnt/Data/Pictures/Cover Art"
 music_dir="/mnt/Data/Music"
+
+cd "$source_dir" || exit
 
 if [[ ! -d "$source_dir" ]]; then
   echo "Source directory $source_dir does not exist"
@@ -30,9 +36,8 @@ for source_file in "${source_files[@]}"; do
 
   if [[ -f "$cover_file" ]]; then
     echo "Cover file $cover_file already exists"
-    exit 1
+  else
+    echo "Converting $source_file to $cover_file"
+    convert "$source_file" -resize 600x600 -quality 92 "$cover_file"
   fi
-
-  echo "Converting $source_file to $cover_file"
-  convert "$source_file" -resize 600x600 -quality 92 "$cover_file"
 done
