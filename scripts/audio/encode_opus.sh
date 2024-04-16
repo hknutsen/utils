@@ -2,6 +2,7 @@
 
 # Reads audio from lossless FLAC files in the source directory,
 # and encodes to lossy Opus files in the output directory.
+# FLAC files in the same directory are considered an album.
 #
 # Prereqs:
 #   opus-tools
@@ -16,33 +17,44 @@
 
 set -eu
 
-source_dir=$1
-output_dir=$2
+source_dir=$(realpath "$1")
+output_dir=$(realpath "$2")
 
-cd "$source_dir" || exit
+cd "$source_dir"
+readarray -t album_dirs < <(find . -type d)
 
-readarray -t flac_files < <(find . -name "*.flac")
-declare -a opus_files
+for album_dir in "${album_dirs[@]}"; do
+  cd "$source_dir/$album_dir"
+  readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac")
 
-for flac_file in "${flac_files[@]}"; do
-  opus_file="$output_dir/${flac_file/".flac"/".opus"}"
-  if [[ -f "$opus_file" ]]; then
-    echo "$opus_file already exists"
+  if [[ "${#flac_files[@]}" -eq 0 ]]; then
     continue
   fi
 
-  parent_dir=$(dirname "$opus_file")
-  if [[ ! -d "$parent_dir" ]]; then
-    mkdir -p "$parent_dir"
+  declare -a opus_files
+  opus_files=()
+
+  for flac_file in "${flac_files[@]}"; do
+    opus_file="$output_dir/$album_dir/${flac_file/".flac"/".opus"}"
+    if [[ -f "$opus_file" ]]; then
+      echo "$opus_file already exists"
+      continue
+    fi
+
+    parent_dir=$(dirname "$opus_file")
+    if [[ ! -d "$parent_dir" ]]; then
+      mkdir -p "$parent_dir"
+    fi
+
+    # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
+    # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
+    opusenc --bitrate 128 --vbr "$flac_file" "$opus_file"
+    opus_files+=("$opus_file")
+  done
+
+  if [[ "${#opus_files[@]}" -gt 0 ]]; then
+    # Calculate track and album gain and write tags to files, fully compliant to RFC 7845 standard.
+    # Ref: https://datatracker.ietf.org/doc/html/rfc7845 (2024/04/16)
+    rsgain custom --album --tagmode=i --opus-mode=s "${opus_files[@]}"
   fi
-
-  # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
-  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
-  opusenc --bitrate 128 --vbr "$flac_file" "$opus_file"
-
-  opus_files+=("$opus_file")
 done
-
-# Calculate track and album gain and write tags to files, fully compliant to RFC 7845 standard.
-# Ref: https://datatracker.ietf.org/doc/html/rfc7845
-rsgain custom --album --tagmode=i --opus-mode=s "${opus_files[@]}"
