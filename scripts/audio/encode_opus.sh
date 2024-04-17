@@ -38,7 +38,7 @@ for album_dir in "${album_dirs[@]}"; do
   for flac_file in "${flac_files[@]}"; do
     opus_file="$target_dir/${flac_file/".flac"/".opus"}"
     if [[ -f "$opus_file" ]]; then
-      echo "\"$opus_file\" already exists"
+      echo "Opus file \"$(realpath "$opus_file")\" already exists"
       continue
     fi
 
