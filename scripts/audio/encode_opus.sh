@@ -49,7 +49,7 @@ for album_dir in "${album_dirs[@]}"; do
   done
 
   if [[ "${#opus_files[@]}" -gt 0 ]]; then
-    # Calculate track and album gain and write tags to files, fully compliant to RFC 7845 standard.
+    # Calculate track and album gain and write RFC 7845 compliant tags.
     # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
     rsgain custom --album --tagmode=i --opus-mode=s "${opus_files[@]}"
   fi
