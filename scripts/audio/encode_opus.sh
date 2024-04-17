@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Reads audio from lossless FLAC files in the source directory and encodes to lossy Opus files in the output directory.
+# Decodes audio from lossless FLAC files in the source directory and encodes to lossy Opus files in the output directory.
 # FLAC files in the same directory are considered an album.
 #
 # Prereqs:
