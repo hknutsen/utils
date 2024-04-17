@@ -1,8 +1,6 @@
 #! /bin/bash
 
-# Reads audio from lossless FLAC files in the source directory,
-# and encodes to lossy Opus files in the output directory.
-# FLAC files in the same directory are considered an album.
+# Decodes audio from lossless FLAC files in the source directory and encodes to lossy Opus files in the output directory.
 #
 # Prereqs:
 #   opus-tools
@@ -10,7 +8,7 @@
 #
 # Arguments:
 #   Source directory
-#   Output directory (relative to source directory)
+#   Output directory
 #
 # Usage:
 #   ./encode_opus.sh /mnt/Data/Music/ ~/Music/
@@ -26,24 +24,22 @@ readarray -t album_dirs < <(find . -type d)
 for album_dir in "${album_dirs[@]}"; do
   cd "$source_dir/$album_dir"
   readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac")
-
   if [[ "${#flac_files[@]}" -eq 0 ]]; then
     continue
   fi
 
-  declare -a opus_files
+  target_dir="$output_dir/$album_dir"
+  if [[ ! -d "$target_dir" ]]; then
+    mkdir -p "$target_dir"
+  fi
+
   opus_files=()
 
   for flac_file in "${flac_files[@]}"; do
-    opus_file="$output_dir/$album_dir/${flac_file/".flac"/".opus"}"
+    opus_file="$target_dir/${flac_file/".flac"/".opus"}"
     if [[ -f "$opus_file" ]]; then
       echo "$opus_file already exists"
       continue
-    fi
-
-    parent_dir=$(dirname "$opus_file")
-    if [[ ! -d "$parent_dir" ]]; then
-      mkdir -p "$parent_dir"
     fi
 
     # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
@@ -53,8 +49,8 @@ for album_dir in "${album_dirs[@]}"; do
   done
 
   if [[ "${#opus_files[@]}" -gt 0 ]]; then
-    # Calculate track and album gain and write tags to files, fully compliant to RFC 7845 standard.
-    # Ref: https://datatracker.ietf.org/doc/html/rfc7845 (2024/04/16)
+    # Calculate track and album gain, and write RFC 7845 standard tags.
+    # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
     rsgain custom --album --tagmode=i --opus-mode=s "${opus_files[@]}"
   fi
 done
