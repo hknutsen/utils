@@ -38,19 +38,21 @@ for album_dir in "${album_dirs[@]}"; do
   for flac_file in "${flac_files[@]}"; do
     opus_file="$target_dir/${flac_file/".flac"/".opus"}"
     if [[ -f "$opus_file" ]]; then
-      echo "$opus_file already exists"
+      echo "\"$opus_file\" already exists"
       continue
     fi
 
     # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
     # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
-    opusenc --bitrate 128 --vbr "$flac_file" "$opus_file"
+    echo "Converting \"$(realpath "$flac_file")\" to \"$(realpath "$opus_file")\""
+    opusenc --bitrate 128 --vbr --quiet "$flac_file" "$opus_file"
     opus_files+=("$opus_file")
   done
 
   if [[ "${#opus_files[@]}" -gt 0 ]]; then
     # Calculate track and album gain, and write RFC 7845 standard tags.
     # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
-    rsgain custom --album --tagmode=i --opus-mode=s "${opus_files[@]}"
+    echo "Calculating gain for \"$(realpath "$target_dir")\""
+    rsgain custom --album --tagmode=i --opus-mode=s --quiet "${opus_files[@]}"
   fi
 done
