@@ -15,6 +15,17 @@
 
 set -eu
 
+source_dir=$1
+output_dir=$2
+
+if [[ ! -d "$source_dir" ]]; then
+  mkdir -p "$source_dir"
+fi
+
+if [[ ! -d "$output_dir" ]]; then
+  mkdir -p "$output_dir"
+fi
+
 source_dir=$(realpath "$1")
 output_dir=$(realpath "$2")
 
