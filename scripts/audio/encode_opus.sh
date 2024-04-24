@@ -6,36 +6,40 @@
 #   opus-tools
 #   rsgain
 #
-# Arguments:
-#   Source directory
-#   Output directory
-#
 # Usage:
-#   ./encode_opus.sh /mnt/Data/Music/ ~/Music/
+#   ./encode_opus.sh
 
 set -eu
 
-if [[ ! -d "$1" ]]; then
-  mkdir -p "$1"
-fi
-source_dir=$(realpath "$1")
+source_dir="/mnt/Data/Music"
+output_dir="$HOME/Music/opus"
 
-if [[ ! -d "$2" ]]; then
-  mkdir -p "$2"
+if [[ ! -d "$source_dir" ]]; then
+  echo "Source directory '$source_dir' does not exist"
+  exit 1
 fi
-output_dir=$(realpath "$2")
+
+if [[ ! -d "$output_dir" ]]; then
+  echo "Output directory '$output_dir' does not exist"
+  exit 1
+fi
 
 cd "$source_dir"
-readarray -t album_dirs < <(find . -type d)
+
+readarray -t album_dirs < <(find . -mindepth 1 -maxdepth 1 -type d | sort)
 
 for album_dir in "${album_dirs[@]}"; do
   cd "$source_dir/$album_dir"
-  readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac")
+
+  readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac" | sort)
+
   if [[ "${#flac_files[@]}" -eq 0 ]]; then
+    echo "Album directory '$album_dir' does not contain any FLAC files"
     continue
   fi
 
   target_dir="$output_dir/$album_dir"
+
   if [[ ! -d "$target_dir" ]]; then
     mkdir -p "$target_dir"
   fi
@@ -44,22 +48,24 @@ for album_dir in "${album_dirs[@]}"; do
 
   for flac_file in "${flac_files[@]}"; do
     opus_file="$target_dir/${flac_file/".flac"/".opus"}"
+
     if [[ -f "$opus_file" ]]; then
-      echo "Opus file \"$(realpath "$opus_file")\" already exists"
+      echo "Opus file '$opus_file' already exists"
       continue
     fi
 
     # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
     # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
-    echo "Converting \"$(realpath "$flac_file")\" to \"$(realpath "$opus_file")\""
+    echo "Converting '$flac_file' to '$opus_file'"
     opusenc --bitrate 128 --vbr --quiet "$flac_file" "$opus_file"
+
     opus_files+=("$opus_file")
   done
 
   if [[ "${#opus_files[@]}" -gt 0 ]]; then
     # Calculate track and album gain, and write RFC 7845 standard tags.
     # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
-    echo "Calculating gain for \"$(realpath "$target_dir")\""
+    echo "Calculating gain for '$target_dir'"
     rsgain custom --album --tagmode=i --opus-mode=s --quiet "${opus_files[@]}"
   fi
 done
