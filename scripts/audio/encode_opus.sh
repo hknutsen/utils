@@ -44,6 +44,7 @@ for album_dir in "${album_dirs[@]}"; do
     mkdir -p "$target_dir"
   fi
 
+  opusenc_args=()
   source_cover="cover.jpg"
   target_cover="$target_dir/cover.jpg"
   if [[ -f "$source_cover" ]]; then
@@ -51,6 +52,7 @@ for album_dir in "${album_dirs[@]}"; do
     # If an estimate cannot be made, quality is set to 92 instead (ref: https://www.imagemagick.org/script/command-line-options.php#quality).
     # We want a consistent quality level for all album covers, so we explicitly set the quality to 92.
     convert "$source_cover" -resize 600x600 -quality 92 "$target_cover"
+    opusenc_args+=(--picture "||||$target_cover")
   fi
 
   opus_files=()
@@ -66,7 +68,7 @@ for album_dir in "${album_dirs[@]}"; do
     # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
     # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
     echo "Converting '$flac_file' to '$opus_file'"
-    opusenc --bitrate 128 --vbr --picture "||||$target_cover" --quiet "$flac_file" "$opus_file"
+    opusenc --bitrate 128 --vbr "${opusenc_args[@]}" --quiet "$flac_file" "$opus_file"
 
     opus_files+=("$opus_file")
   done
