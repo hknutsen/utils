@@ -1,17 +1,15 @@
 #! /bin/bash
 
-# Decodes audio from lossless FLAC files in the input directory and
-# encodes to lossy Opus files in the output directory.
+# Decodes audio from lossless FLAC files in the input directory and encodes to lossy Opus files in the output directory.
 # Prerequisites:
 #   parallel
 #   opus-tools
-#   rsgain
 # Arguments:
 #   Input directory, a path.
 #   Output directory, a path.
 # Usage:
 #   ./encode_opus.sh <INPUT_DIR> <OUTPUT_DIR>
-#   ./encode_opus.sh /mnt/Data/Music ~/Music/opus
+#   ./encode_opus.sh /mnt/Data/Music ~/Music/Opus
 
 set -eu
 
@@ -19,7 +17,6 @@ function doit {
   input_file="${INPUT_DIR}/$1"
   output_file="${OUTPUT_DIR}/$2"
 
-  # Ensure directory exists.
   dir=$(dirname "${output_file}")
   if [[ ! -d "${dir}" ]]; then
     mkdir -p "${dir}"
@@ -50,11 +47,6 @@ export OUTPUT_DIR
 # Export the function to the environment.
 export -f doit
 
-# Convert FLAC files in input the directory to Opus files in the output directory.
-echo "Converting FLAC files in '$INPUT_DIR' to Opus files in '$OUTPUT_DIR'"
+# NOW DO IT!
 cd "${INPUT_DIR}"
 find . -type f -name "*.flac" | sort | parallel --progress 'doit {} {.}.opus'
-
-# Calculate gain for Opus files in the output directory.
-echo "Calculating gain for Opus files in '$OUTPUT_DIR'"
-rsgain easy -m MAX "$OUTPUT_DIR"
