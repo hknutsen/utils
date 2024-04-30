@@ -20,7 +20,7 @@ function doit {
   output_file="${OUTPUT_DIR}/$2"
 
   # Ensure directory exists.
-  dir=$(dirname "${OUTPUT_DIR}/$2")
+  dir=$(dirname "${output_file}")
   if [[ ! -d "${dir}" ]]; then
     mkdir -p "${dir}"
   fi
