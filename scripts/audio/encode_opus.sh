@@ -15,8 +15,24 @@
 
 set -eu
 
+################################################################################
+# Convert input file to Opus in output directory.
+# Globals:
+#   INPUT_DIR
+#   OUTPUT_DIR
+# Arguments:
+#   Input file, a name.
+#   Output file, a name.
+# Outputs:
+#   Writes output file path to stdout
+################################################################################
 function doit {
-  opusenc --bitrate 128 --vbr --quiet "$INPUT_DIR/$1" "$OUTPUT_DIR/$2"
+  input_file="${INPUT_DIR}/$1"
+  output_file="${OUTPUT_DIR}/$2"
+  # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
+  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
+  opusenc --bitrate 128 --vbr --quiet "${input_file}" "${output_file}"
+  realpath "${output_file}"
 }
 
 if [[ ! -d "$1" ]]; then
@@ -26,7 +42,6 @@ fi
 SOURCE_DIR=$(realpath "$1")
 readonly SOURCE_DIR
 
-# TODO: check that TARGET_DIR is empty to prevent overriding existing files
 if [[ ! -d "$2" ]]; then
   mkdir -p "$2"
 fi
@@ -59,11 +74,14 @@ for ALBUM_DIR in "${ALBUM_DIRS[@]}"; do
     mkdir -p "${OUTPUT_DIR}"
   fi
 
-  # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
-  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
-  echo "Converting FLAC files in '$INPUT_DIR' to Opus in '$OUTPUT_DIR'..."
-  parallel "doit {} {.}.opus" ::: "${flac_files[@]}"
-done
+  # Convert FLAC files to Opus.
+  echo "Converting FLAC files in '$INPUT_DIR' to Opus in '$OUTPUT_DIR'"
+  readarray -t opus_files < <(parallel 'doit {} {.}.opus' ::: "${flac_files[@]}")
 
-echo "Calculating gain in '$TARGET_DIR'..."
-rsgain easy -m MAX "$TARGET_DIR"
+  if [[ "${#opus_files[@]}" -gt 0 ]]; then
+    # Calculate track and album gain, and write RFC 7845 standard tags.
+    # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
+    echo "Calculating track and album gain in '$OUTPUT_DIR'"
+    rsgain custom --album --tagmode=i --opus-mode=s --quiet "${opus_files[@]}"
+  fi
+done
