@@ -52,14 +52,14 @@ export -f convert_to_opus
 
 # Find album directories.
 cd "${SOURCE_DIR}"
-readarray -t ALBUM_DIRS < <(find . -maxdepth 1 -type d)
+readarray -t ALBUM_DIRS < <(find . -maxdepth 1 -type d | sort)
 readonly ALBUM_DIRS
 
 for ALBUM_DIR in "${ALBUM_DIRS[@]}"; do
   # Find FLAC files in album directory.
   # If album directory doesn't contain any FLAC files, skip and continue loop.
   cd "${SOURCE_DIR}/${ALBUM_DIR}"
-  readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac")
+  readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac" | sort)
   if [[ "${#flac_files[@]}" -eq 0 ]]; then
     continue
   fi
