@@ -37,35 +37,27 @@ if [[ ! -d "$1" ]]; then
   echo "Directory '$1' does not exist"
   exit 1
 fi
+readonly SOURCE_DIR=$(realpath "$1")
 
 if [[ ! -d "$2" ]]; then
   mkdir -p "$2"
 fi
-
-readonly SOURCE_DIR=$(realpath "$1")
 readonly TARGET_DIR=$(realpath "$2")
 
-# Export constants to environment
+# Export constants and functions to environment
 export OUTPUT_DIR
-
-# Export functions to environment
 export -f flac2opus
 
-# Change to source directory.
-cd "${SOURCE_DIR}"
-
 # Find album directories.
+cd "${SOURCE_DIR}"
 readarray -t ALBUM_DIRS < <(find . -maxdepth 1 -type d)
 readonly ALBUM_DIRS
 
 for ALBUM_DIR in "${ALBUM_DIRS[@]}"; do
-  # Change to album directory.
+  # Find FLAC files in album directory.
+  # If album directory doesn't contain any FLAC files, skip and continue loop.
   cd "${SOURCE_DIR}/${ALBUM_DIR}"
-
-  # Find FLAC files.
   readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac")
-
-  # If no FLAC files found, skip this directory.
   if [[ "${#flac_files[@]}" -eq 0 ]]; then
     continue
   fi
