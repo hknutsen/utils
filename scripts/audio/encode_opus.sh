@@ -36,7 +36,7 @@ if [[ ! -d "$1" ]]; then
   echo "Source directory '$1' does not exist"
   exit 1
 fi
-INPUT_DIR="$1"
+INPUT_DIR=$(realpath "$1")
 export INPUT_DIR
 
 # Ensure output directory exists.
@@ -44,7 +44,7 @@ export INPUT_DIR
 if [[ ! -d "$2" ]]; then
   mkdir -p "$2"
 fi
-OUTPUT_DIR="$2"
+OUTPUT_DIR=$(realpath "$2")
 export OUTPUT_DIR
 
 # Export the function to the environment.
