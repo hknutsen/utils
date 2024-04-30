@@ -63,7 +63,7 @@ for ALBUM_DIR in "${ALBUM_DIRS[@]}"; do
   fi
 
   # Set output directory, and ensure it exists.
-  $OUTPUT_DIR="${TARGET_DIR}/${ALBUM_DIR}"
+  OUTPUT_DIR="${TARGET_DIR}/${ALBUM_DIR}"
   if [[ ! -d "${OUTPUT_DIR}" ]]; then
     mkdir -p "${OUTPUT_DIR}"
   fi
