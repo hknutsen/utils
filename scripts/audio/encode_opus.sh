@@ -36,7 +36,7 @@ fi
 INPUT_DIR=$(realpath "$1")
 export INPUT_DIR
 
-# Ensure output directory exists.
+# Ensure the output directory exists.
 # Export it to the environment.
 if [[ ! -d "$2" ]]; then
   mkdir -p "$2"
