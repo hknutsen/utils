@@ -16,16 +16,16 @@
 set -eu
 
 ################################################################################
-# Convert FLAC file to Opus.
+# Convert input file to Opus.
 # Globals:
 #   OUTPUT_DIR
 # Arguments:
-#   FLAC_FILE, a name.
-#   OPUS_FILE, a name.
+#   Input file, a name.
+#   Output file, a name.
 # Outputs:
 #   Writes output file path to stdout
 ################################################################################
-function flac2opus {
+function convert_to_opus {
   output_file="${OUTPUT_DIR}/$2"
   # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s (VBR) is pretty much transparent".
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
@@ -37,16 +37,18 @@ if [[ ! -d "$1" ]]; then
   echo "Directory '$1' does not exist"
   exit 1
 fi
-readonly SOURCE_DIR=$(realpath "$1")
+SOURCE_DIR=$(realpath "$1")
+readonly SOURCE_DIR
 
 if [[ ! -d "$2" ]]; then
   mkdir -p "$2"
 fi
-readonly TARGET_DIR=$(realpath "$2")
+TARGET_DIR=$(realpath "$2")
+readonly TARGET_DIR
 
 # Export constants and functions to environment
 export OUTPUT_DIR
-export -f flac2opus
+export -f convert_to_opus
 
 # Find album directories.
 cd "${SOURCE_DIR}"
@@ -69,7 +71,7 @@ for ALBUM_DIR in "${ALBUM_DIRS[@]}"; do
   fi
 
   # Convert FLAC files to Opus.
-  readarray -t opus_files < <(parallel 'flac2opus {} {.}.opus' ::: "${flac_files[@]}")
+  readarray -t opus_files < <(parallel 'convert_to_opus {} {.}.opus' ::: "${flac_files[@]}")
 
   # Calculate track and album gain, and write RFC 7845 standard tags.
   # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
