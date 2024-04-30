@@ -47,6 +47,7 @@ TARGET_DIR=$(realpath "$2")
 readonly TARGET_DIR
 
 # Export constants and functions to environment
+export INPUT_DIR
 export OUTPUT_DIR
 export -f convert_to_opus
 
@@ -58,22 +59,25 @@ readonly ALBUM_DIRS
 for ALBUM_DIR in "${ALBUM_DIRS[@]}"; do
   # Find FLAC files in album directory.
   # If album directory doesn't contain any FLAC files, skip and continue loop.
-  cd "${SOURCE_DIR}/${ALBUM_DIR}"
+  INPUT_DIR=$(realpath "${SOURCE_DIR}/${ALBUM_DIR}")
+  cd "$INPUT_DIR"
   readarray -t flac_files < <(find . -maxdepth 1 -type f -name "*.flac" | sort)
   if [[ "${#flac_files[@]}" -eq 0 ]]; then
     continue
   fi
 
   # Set output directory, and ensure it exists.
-  OUTPUT_DIR="${TARGET_DIR}/${ALBUM_DIR}"
+  OUTPUT_DIR=$(realpath "${TARGET_DIR}/${ALBUM_DIR}")
   if [[ ! -d "${OUTPUT_DIR}" ]]; then
     mkdir -p "${OUTPUT_DIR}"
   fi
 
   # Convert FLAC files to Opus.
+  echo "Converting FLAC files in '$INPUT_DIR' to Opus in '$OUTPUT_DIR'"
   readarray -t opus_files < <(parallel 'convert_to_opus {} {.}.opus' ::: "${flac_files[@]}")
 
   # Calculate track and album gain, and write RFC 7845 standard tags.
   # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
+  echo "Calculating track and album gain in '$OUTPUT_DIR'"
   rsgain custom --album --tagmode=i --opus-mode=s --quiet "${opus_files[@]}"
 done
