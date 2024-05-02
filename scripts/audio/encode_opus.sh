@@ -26,6 +26,7 @@ function doit {
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
   #
   # TODO: Clarify why album gain is set to 0
+  # Ref: https://wiki.xiph.org/OggOpus#Comment_Header (2024/05/02)
   # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
   opusenc --bitrate 128 --vbr --comment "R128_ALBUM_GAIN=0" --quiet "${input_file}" "${output_file}"
 }
