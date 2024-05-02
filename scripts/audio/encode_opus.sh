@@ -25,11 +25,16 @@ function doit {
 
   # According to the Xiph.Org Foundation (developers of Opus),
   # "Opus at 128 KB/s (VBR) is pretty much transparent".
-  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates (2024/04/03)
+  # Refs: https://wiki.xiph.org/Opus_Recommended_Settings (2024/04/03)
   #
-  # TODO: Clarify why album gain is set to 0
-  # Ref: https://wiki.xiph.org/OggOpus#Comment_Header (2024/05/02)
-  # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1 (2024/04/16)
+  # All comment fields will be transferred from the input FLAC file,
+  # except "REPLAYGAIN_*" fields. Opus uses "R128_*" fields instead.
+  # The "R128_TRACK_GAIN" field is automatically added by the encoder.
+  # The "R128_ALBUM_GAIN" field is be automatically added by the encoder.
+  # We explicitly set album gain to 0 zero to rely on output gain instead.
+  # Setting album gain explicitly to 0 prevents from audio players from falling
+  # back to track gain because album gain is non-existent.
+  # Refs: https://datatracker.ietf.org/doc/html/rfc7845 (2024/05/02)
   opusenc --bitrate 128 --vbr \
     --comment "R128_ALBUM_GAIN=0" \
     --quiet "${input_file}" "${output_file}"
