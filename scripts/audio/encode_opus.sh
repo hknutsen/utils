@@ -31,26 +31,25 @@ function doit {
 }
 
 # Ensure the input directory exists.
-# Export it to the environment.
 if [[ ! -d "$1" ]]; then
   echo "Input directory '$1' does not exist"
   exit 1
 fi
 INPUT_DIR=$(realpath "$1")
-export INPUT_DIR
 
 # Ensure the output directory exists.
-# Export it to the environment.
 if [[ ! -d "$2" ]]; then
   mkdir -p "$2"
 fi
 OUTPUT_DIR=$(realpath "$2")
-export OUTPUT_DIR
 
-# Export the function to the environment.
+# Export variables and functions to the environment,
+# allowing child processes to inherit them.
+export INPUT_DIR
+export OUTPUT_DIR
 export -f doit
 
-# NOW DO IT!
+# Convert FLAC files to Opus files in parallel child processes.
 cd "${INPUT_DIR}"
 find . -type f -name "*.flac" \
   | sort \
