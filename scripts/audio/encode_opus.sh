@@ -25,16 +25,21 @@ function doit {
 
   # According to the Xiph.Org Foundation (developers of Opus),
   # "Opus at 128 KB/s (VBR) is pretty much transparent".
-  # Refs: https://wiki.xiph.org/Opus_Recommended_Settings (2024/04/03)
+  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings (2024/04/03)
   #
-  # All comment fields will be transferred from the input FLAC file,
-  # except "REPLAYGAIN_*" fields. Opus uses "R128_*" fields instead.
-  # The "R128_TRACK_GAIN" field is automatically added by the encoder.
-  # The "R128_ALBUM_GAIN" field is not automatically added by the encoder.
-  # We explicitly set album gain to 0 zero to rely on output gain instead.
-  # Setting album gain explicitly to 0 prevents media players from falling
-  # back to track gain because album gain is non-existent.
-  # Refs: https://datatracker.ietf.org/doc/html/rfc7845 (2024/05/02)
+  # According to the Opus specification, gain must be stored in the
+  # "Output Gain" field in the ID header. Media players should apply this output
+  # gain by default. Additional track and album gain should be stored in the
+  # "R128_TRACK_GAIN" and "R128_ALBUM_GAIN" fields in the comment header. Media
+  # players should apply the track and album gain in addition to the output
+  # gain. The reference Opus encoder stores album gain in the "Output Gain"
+  # field and additional track gain in the "R128_TRACK_GAIN" field. It is
+  # implicit that the value of the "R128_ALBUM_GAIN" field is 0, however the
+  # lack of an explicit "R128_ALBUM_GAIN" field results in some media players
+  # falling back to applying the additional track gain when only album gain is
+  # preferred. Explicitly set the value of the "R128_ALBUM_GAIN" field to 0 to
+  # prevent this behavior.
+  # Ref: https://datatracker.ietf.org/doc/html/rfc7845 (2024/05/02)
   opusenc --bitrate 128 --vbr \
     --comment "R128_ALBUM_GAIN=0" \
     --quiet "${input_file}" "${output_file}"
