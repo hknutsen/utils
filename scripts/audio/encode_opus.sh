@@ -1,13 +1,16 @@
 #! /bin/bash
 
-# Decodes audio from lossless FLAC files in the input directory and
-# encodes to lossy Opus files in the output directory.
+# Decodes audio from lossless FLAC files in the input directory and encodes to 
+# lossy Opus files in the output directory.
+#
 # Prerequisites:
 #   parallel
 #   opus-tools
+#
 # Arguments:
 #   Input directory, a path.
 #   Output directory, a path.
+#
 # Usage:
 #   ./encode_opus.sh <INPUT_DIR> <OUTPUT_DIR>
 #   ./encode_opus.sh /mnt/Data/Music ~/Music/Opus
@@ -58,8 +61,7 @@ if [[ ! -d "$2" ]]; then
 fi
 OUTPUT_DIR=$(realpath "$2")
 
-# Export variables and functions to the environment,
-# allowing child processes to inherit them.
+# Export variables and functions, allowing child processes to inherit them.
 export INPUT_DIR
 export OUTPUT_DIR
 export -f doit
