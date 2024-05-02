@@ -30,9 +30,9 @@ function doit {
   # All comment fields will be transferred from the input FLAC file,
   # except "REPLAYGAIN_*" fields. Opus uses "R128_*" fields instead.
   # The "R128_TRACK_GAIN" field is automatically added by the encoder.
-  # The "R128_ALBUM_GAIN" field is be automatically added by the encoder.
+  # The "R128_ALBUM_GAIN" field is not automatically added by the encoder.
   # We explicitly set album gain to 0 zero to rely on output gain instead.
-  # Setting album gain explicitly to 0 prevents from audio players from falling
+  # Setting album gain explicitly to 0 prevents media players from falling
   # back to track gain because album gain is non-existent.
   # Refs: https://datatracker.ietf.org/doc/html/rfc7845 (2024/05/02)
   opusenc --bitrate 128 --vbr \
