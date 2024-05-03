@@ -31,6 +31,9 @@ function doit {
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates
   opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
 
+  # The Opus encoder provided by opus-tools will propagate tags from the input
+  # FLAC file to the output Opus file, except "REPLAYGAIN_*" tags.
+  #
   # Opus follows the EBU R128 specification for loudness normalization.
   # According to the Opus specification, gain must be stored in the "Output
   # Gain" field in the ID header. Media players should apply this gain by
