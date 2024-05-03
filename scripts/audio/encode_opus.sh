@@ -71,4 +71,4 @@ export -f doit
 
 # Convert FLAC files to Opus files in parallel child processes.
 cd "$INPUT_DIR"
-find . -type f -name "*.flac" | sort | parallel --progress 'doit {} {.}.opus'
+find . -name "*.flac" -type f | sort | parallel --progress 'doit {} {.}.opus'
