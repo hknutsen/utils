@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Decodes audio from lossless FLAC files in the input directory and encodes to 
+# Decodes audio from lossless FLAC files in the input directory and encodes to
 # lossy Opus files in the output directory.
 #
 # Prerequisites:
@@ -28,7 +28,23 @@ function doit {
 
   # According to the Xiph.Org Foundation (developers of Opus),
   # "Opus at 128 KB/s (VBR) is pretty much transparent".
-  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings (2024/04/03)
+  # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates
+  #
+  # Opus follows the EBU R128 specification for loudness normalization.
+  # According to the Opus specification, gain must be stored in the "Output
+  # Gain" field in the ID header. Media players should apply this gain by
+  # default. Additional track and album gain can be stored in the
+  # "R128_TRACK_GAIN" and "R128_ALBUM_GAIN" tags in the comment header.
+  # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1
+  # 
+  # The Opus encoder included in opus-tools stores album gain in the "Output
+  # Gain" field and additional track gain in the "R128_TRACK_GAIN" tag. If the
+  # input FLAC file has a "REPLAYGAIN_ALBUM_GAIN" tag, its value will be converted
+  # to the R128 reference level and stored in the "Output Gain" field of the
+  # output Opus file. If the input FLAC file has a "REPLAYGAIN_TRACK_GAIN" tag,
+  # its value relative to the album gain will be converted to the R128 reference
+  # level and stored in the "R128_TRACK_GAIN" tag of the output Opus file.
+  # Ref: https://github.com/xiph/opus-tools/blob/v0.2/src/flac.c#L179-L193
   opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
 }
 
