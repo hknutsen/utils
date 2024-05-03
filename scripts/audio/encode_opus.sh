@@ -18,18 +18,18 @@
 set -eu
 
 function doit {
-  input_file="${INPUT_DIR}/$1"
-  output_file="${OUTPUT_DIR}/$2"
+  input_file="$INPUT_DIR/$1"
+  output_file="$OUTPUT_DIR/$2"
 
-  dir=$(dirname "${output_file}")
-  if [[ ! -d "${dir}" ]]; then
-    mkdir -p "${dir}"
+  dir=$(dirname "$output_file")
+  if [[ ! -d "$dir" ]]; then
+    mkdir -p "$dir"
   fi
 
   # According to the Xiph.Org Foundation (developers of Opus),
   # "Opus at 128 KB/s (VBR) is pretty much transparent".
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings (2024/04/03)
-  opusenc --bitrate 128 --vbr --quiet "${input_file}" "${output_file}"
+  opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
 }
 
 # Ensure the input directory exists.
@@ -51,5 +51,5 @@ export OUTPUT_DIR
 export -f doit
 
 # Convert FLAC files to Opus files in parallel child processes.
-cd "${INPUT_DIR}"
+cd "$INPUT_DIR"
 find . -type f -name "*.flac" | sort | parallel --progress 'doit {} {.}.opus'
