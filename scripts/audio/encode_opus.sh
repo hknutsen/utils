@@ -37,15 +37,16 @@ function doit {
   # "R128_TRACK_GAIN" and "R128_ALBUM_GAIN" tags in the comment header.
   # Ref: https://datatracker.ietf.org/doc/html/rfc7845#section-5.2.1
   #
-  # The Opus encoder included in opus-tools stores album gain in the "Output
-  # Gain" field and additional track gain in the "R128_TRACK_GAIN" tag. If the
-  # input FLAC file has a "REPLAYGAIN_ALBUM_GAIN" tag, its value will be
+  # If the input FLAC file has a "REPLAYGAIN_ALBUM_GAIN" tag, its value will be
   # converted to the R128 reference level and stored in the "Output Gain" field
   # of the output Opus file. If the input FLAC file has a
   # "REPLAYGAIN_TRACK_GAIN" tag, its value relative to the album gain will be
   # converted to the R128 reference level and stored in the "R128_TRACK_GAIN"
   # tag of the output Opus file.
   # Ref: https://github.com/xiph/opus-tools/blob/v0.2/src/flac.c#L179-L193
+  #
+  # Some media players might require ReplayGain to be turned off in order to use
+  # the output gain without applying the additional track gain.
   opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
 }
 
