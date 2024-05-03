@@ -29,7 +29,8 @@ function doit {
   # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s
   # (VBR) is pretty much transparent".
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates
-  #
+  opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
+
   # Opus follows the EBU R128 specification for loudness normalization.
   # According to the Opus specification, gain must be stored in the "Output
   # Gain" field in the ID header. Media players should apply this gain by
@@ -48,7 +49,6 @@ function doit {
   # Some media players might require ReplayGain to be turned off in order apply
   # the default output gain (i.e. the album gain) without applying the
   # additional track gain.
-  opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
 }
 
 # Ensure the input directory exists.
