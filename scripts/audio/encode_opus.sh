@@ -45,8 +45,9 @@ function doit {
   # tag of the output Opus file.
   # Ref: https://github.com/xiph/opus-tools/blob/v0.2/src/flac.c#L179-L193
   #
-  # Some media players might require ReplayGain to be turned off in order to use
-  # the output gain without applying the additional track gain.
+  # Some media players might require ReplayGain to be turned off in order apply
+  # the default output gain (i.e. the album gain) without applying the
+  # additional track gain.
   opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
 }
 
