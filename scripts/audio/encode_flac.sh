@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Decodes audio from lossless FLAC files in the input directory and encodes
+# Reads audio from lossless FLAC files in the input directory and re-encodes
 # using the latest version of the FLAC encoder.
 #
 # Prerequisites:
