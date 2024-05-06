@@ -21,6 +21,11 @@ function doit {
   input_file="$INPUT_DIR/$1"
   output_file="$OUTPUT_DIR/$2"
 
+  if [[ -f "$output_file" ]]; then
+    # If output Opus file already exists, skip.
+    exit 0
+  fi
+
   dir=$(dirname "$output_file")
   if [[ ! -d "$dir" ]]; then
     mkdir -p "$dir"
