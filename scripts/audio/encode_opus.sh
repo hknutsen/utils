@@ -8,11 +8,14 @@
 #   opus-tools
 #
 # Arguments:
-#   Input directory, a path.
-#   Output directory, a path.
+#   Input directory, a path. Default is /mnt/Data/Music.
+#   Output directory, a path. Default is ~/Music/Opus.
 #
 # Usage:
-#   ./encode_opus.sh <INPUT_DIR> <OUTPUT_DIR>
+#   ./encode_opus.sh [<INPUT_DIR>] [<OUTPUT_DIR>]
+#
+# Examples:
+#   ./encode_opus.sh
 #   ./encode_opus.sh /mnt/Data/Music ~/Music/Opus
 
 set -eu
@@ -60,17 +63,19 @@ function doit {
 }
 
 # Ensure the input directory exists.
-if [[ ! -d "$1" ]]; then
-  echo "Input directory '$1' does not exist"
+INPUT_DIR="${1:-"/mnt/Data/Music"}"
+if [[ ! -d "$INPUT_DIR" ]]; then
+  echo "Input directory '$INPUT_DIR' does not exist"
   exit 1
 fi
-INPUT_DIR=$(realpath "$1")
+INPUT_DIR=$(realpath "$INPUT_DIR")
 
 # Ensure the output directory exists.
-if [[ ! -d "$2" ]]; then
-  mkdir -p "$2"
+OUTPUT_DIR="${2:-"$HOME/Music/Opus"}"
+if [[ ! -d "$OUTPUT_DIR" ]]; then
+  mkdir -p "$OUTPUT_DIR"
 fi
-OUTPUT_DIR=$(realpath "$2")
+OUTPUT_DIR=$(realpath "$OUTPUT_DIR")
 
 # Export variables and functions, allowing child processes to inherit them.
 export INPUT_DIR
