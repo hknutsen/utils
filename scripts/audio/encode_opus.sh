@@ -7,29 +7,25 @@
 #   parallel
 #   opus-tools
 #
-# Arguments:
-#   Input directory, a path. Default is /mnt/Data/Music.
-#   Output directory, a path. Default is ~/Music/Opus.
+# Globals:
+#   FLAC_DIR
+#   OPUS_DIR
 #
 # Usage:
-#   ./encode_opus.sh [<INPUT_DIR>] [<OUTPUT_DIR>]
-#
-# Examples:
 #   ./encode_opus.sh
-#   ./encode_opus.sh /mnt/Data/Music ~/Music/Opus
 
 set -eu
 
 function doit {
-  input_file="$INPUT_DIR/$1"
-  output_file="$OUTPUT_DIR/$2"
+  flac_file="$FLAC_DIR/$1"
+  opus_file="$OPUS_DIR/$2"
 
-  if [[ -f "$output_file" ]]; then
+  if [[ -f "$opus_file" ]]; then
     # If output Opus file already exists, skip.
     exit 0
   fi
 
-  dir=$(dirname "$output_file")
+  dir=$(dirname "$opus_file")
   if [[ ! -d "$dir" ]]; then
     mkdir -p "$dir"
   fi
@@ -37,7 +33,7 @@ function doit {
   # According to the Xiph.Org Foundation (developers of Opus), "Opus at 128 KB/s
   # (VBR) is pretty much transparent".
   # Ref: https://wiki.xiph.org/Opus_Recommended_Settings#Recommended_Bitrates
-  opusenc --bitrate 128 --vbr --quiet "$input_file" "$output_file"
+  opusenc --bitrate 128 --vbr --quiet "$flac_file" "$opus_file"
 
   # The Opus encoder provided by opus-tools will propagate tags from the input
   # FLAC file to the output Opus file, except "REPLAYGAIN_*" tags.
@@ -63,25 +59,19 @@ function doit {
 }
 
 # Ensure the input directory exists.
-INPUT_DIR="${1:-"/mnt/Data/Music"}"
-if [[ ! -d "$INPUT_DIR" ]]; then
-  echo "Input directory '$INPUT_DIR' does not exist"
+if [[ ! -d "$FLAC_DIR" ]]; then
+  echo "Input directory '$FLAC_DIR' does not exist"
   exit 1
 fi
-INPUT_DIR=$(realpath "$INPUT_DIR")
 
 # Ensure the output directory exists.
-OUTPUT_DIR="${2:-"$HOME/Music/Opus"}"
-if [[ ! -d "$OUTPUT_DIR" ]]; then
-  mkdir -p "$OUTPUT_DIR"
+if [[ ! -d "$OPUS_DIR" ]]; then
+  mkdir -p "$OPUS_DIR"
 fi
-OUTPUT_DIR=$(realpath "$OUTPUT_DIR")
 
-# Export variables and functions, allowing child processes to inherit them.
-export INPUT_DIR
-export OUTPUT_DIR
+# Export function, allowing child processes to inherit it.
 export -f doit
 
 # Convert FLAC files to Opus files in parallel child processes.
-cd "$INPUT_DIR"
+cd "$FLAC_DIR"
 find . -name '*.flac' -type f | sort | parallel --progress 'doit {} {.}.opus'

@@ -7,21 +7,20 @@
 #   parallel
 #   flac
 #
-# Arguments:
-#   Input directory, a path.
+# Globals:
+#   FLAC_DIR
 #
 # Usage:
-#   ./encode_flac.sh <INPUT_DIR>
-#   ./encode_flac.sh /mnt/Data/Music
+#   ./encode_flac.sh
 
 set -eu
 
 # Ensure the input directory exists.
-if [[ ! -d "$1" ]]; then
-  echo "Input directory '$1' does not exist"
+if [[ ! -d "$FLAC_DIR" ]]; then
+  echo "Input directory '$FLAC_DIR' does not exist"
   exit 1
 fi
-cd "$1"
 
 # Re-encode FLAC files in parallel child processes.
+cd "$FLAC_DIR"
 find . -name '*.flac' -type f | sort | parallel --progress 'flac --best --force {}'
