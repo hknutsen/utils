@@ -6,6 +6,9 @@ packages=(
   # Sysadmin
   deja-dup # Backups
 
+  # General
+  thunderbird # Email
+
   # Audio tools
   whipper   # CD ripper
   picard    # Music tagger
