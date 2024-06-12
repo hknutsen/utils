@@ -3,6 +3,9 @@
 set -eu
 
 packages=(
+  # Sysadmin
+  deja-dup # Backups
+
   # Audio tools
   whipper   # CD ripper
   picard    # Music tagger
