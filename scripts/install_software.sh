@@ -14,6 +14,9 @@ packages=(
   picard    # Music tagger
   rsgain    # ReplayGain tagging utility
   quodlibet # Music player
+
+  # Games
+  steam
 )
 
 sudo dnf install "${packages[@]}"
