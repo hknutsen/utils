@@ -4,7 +4,8 @@ set -eu
 
 packages=(
   # Sysadmin
-  deja-dup # Backups
+  gnome-tweaks # Tweak GNOME desktop environment
+  deja-dup     # Backups
 
   # General
   thunderbird # Email
@@ -16,7 +17,6 @@ packages=(
   quodlibet # Music player
 
   # Games
-  lutris
   steam
 )
 
