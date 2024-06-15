@@ -16,6 +16,7 @@ packages=(
   quodlibet # Music player
 
   # Games
+  lutris
   steam
 )
 
