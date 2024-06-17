@@ -10,14 +10,16 @@ packages=(
   # General
   thunderbird # Email
 
-  # Audio tools
-  whipper   # CD ripper
-  picard    # Music tagger
-  rsgain    # ReplayGain tagging utility
-  quodlibet # Music player
+  # Script tools
+  parallel # Run other tools in parallel processes
 
-  # Games
-  steam
+  # Audio tools
+  flac       # FLAC encoder
+  opus-tools # Opus encoder
+  whipper    # CD ripper
+  picard     # Music tagger
+  rsgain     # ReplayGain tagging utility
+  quodlibet  # Music player
 )
 
 sudo dnf install "${packages[@]}"
