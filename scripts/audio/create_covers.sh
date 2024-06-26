@@ -3,7 +3,7 @@
 # Converts all "cover.jpg" files in the source music directory to "cover_600px.jpg" files for embedding.
 #
 # Prereqs:
-#   ImageMagick
+#   imagemagick
 #
 # Arguments:
 #   Source directory
