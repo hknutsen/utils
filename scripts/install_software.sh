@@ -18,7 +18,6 @@ packages=(
   whipper    # CD ripper
   picard     # Music tagger
   rsgain     # ReplayGain tagging utility
-  quodlibet  # Music player
 
   # Development tools
   code
