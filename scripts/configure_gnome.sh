@@ -9,3 +9,6 @@ gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
 # # Increase cursor size for same reason as above
 # gsettings set org.gnome.desktop.interface cursor-size 32
+
+# Always show accessibility menu in the top bar
+gsettings set org.gnome.desktop.a11y always-show-universal-access-status true
