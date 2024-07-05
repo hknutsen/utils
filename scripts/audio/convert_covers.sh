@@ -9,7 +9,7 @@
 #   Source directory
 #
 # Usage:
-#   ./create_covers.sh /mnt/Data/Music
+#   ./convert_covers.sh /mnt/Data/Music
 
 set -eu
 
