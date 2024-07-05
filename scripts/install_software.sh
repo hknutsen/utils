@@ -24,5 +24,12 @@ packages=(
   neovim
 )
 
+flatpaks=(
+  com.spotify.Client # Music streaming
+)
+
 # Install packages
 sudo dnf install "${packages[@]}"
+
+# Install flatpaks
+flatpak install flathub "${flatpaks[@]}"
