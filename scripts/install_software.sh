@@ -21,7 +21,8 @@ packages=(
   rsgain     # ReplayGain tagging utility
 
   # Development tools
-  neovim
+  neovim # Code editor
+  gh     # GitHub CLI
 )
 
 flatpaks=(
