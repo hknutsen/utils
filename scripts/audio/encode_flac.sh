@@ -25,7 +25,7 @@ function doit {
     exit 0
   fi
 
-  flac --best --quiet --force "$flac_file"
+  flac --best --silent --force "$flac_file"
 }
 
 # Ensure the input directory exists.
