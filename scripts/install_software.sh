@@ -4,7 +4,8 @@ set -eu
 
 packages=(
   # Sysadmin
-  deja-dup # Backups
+  gnome-tweaks # Tweak advanced GNOME settings
+  deja-dup     # Backups
 
   # General
   thunderbird # Email
