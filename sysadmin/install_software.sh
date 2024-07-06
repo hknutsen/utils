@@ -22,7 +22,7 @@ flatpaks=(
   com.spotify.Client
 )
 
-sudo dnf update
+sudo dnf upgrade
 
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software, such as Nvidia drivers.
