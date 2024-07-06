@@ -41,10 +41,11 @@ sudo dnf install "${packages[@]}"
 # Install flatpaks.
 flatpak install flathub "${flatpaks[@]}"
 
-# Wait for Kernel modules to complete building...
-until modinfo -F version nvidia
+# Wait for kernel modules to complete building...
+until modinfo -F version nvidia 2>/dev/null
 do
-  echo 'Building Nvidia Kernel module...'
+  echo 'Building Nvidia kernel module...'
+  sleep 1m
 done
-echo 'Nvidia Kernel module build complete!'
+echo 'Nvidia kernel module build complete!'
 echo 'Restart your computer to finish installation of drivers.'
