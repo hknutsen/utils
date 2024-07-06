@@ -3,30 +3,31 @@
 set -eu
 
 packages=(
-  # Sysadmin
-  deja-dup # Backups
-
-  # General
-  thunderbird # Email
-
-  # Script tools
-  parallel # Run other tools in parallel processes
-
-  # Audio tools
-  flac       # FLAC encoder
-  opus-tools # Opus encoder
-  whipper    # CD ripper
-  picard     # Music tagger
-  rsgain     # ReplayGain tagging utility
-
-  # Development tools
-  code # VS Code
-  gh   # GitHub CLI
+  deja-dup
+  thunderbird
+  akmod-nvidia
+  xorg-x11-drv-nvidia-cuda
+  code
+  gh
+  parallel
+  flac
+  opus-tools
+  whipper
+  picard
+  rsgain
 )
 
 flatpaks=(
-  com.spotify.Client # Music streaming
+  com.spotify.Client
 )
+
+sudo dnf update -y
+
+# Enable RPM Fusion repositories.
+# Required for installing proprietary software, such as Nvidia drivers.
+# Ref: https://docs.fedoraproject.org/en-US/quick-docs/rpmfusion-setup/
+sudo dnf install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+sudo dnf install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
 # Add VS Code repository
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
