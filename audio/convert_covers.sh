@@ -1,34 +1,46 @@
 #! /bin/bash
 
-# Converts all "cover.jpg" files in the source music directory to "cover_600px.jpg" files for embedding.
+# Converts all "cover.jpg" files in the source directory to "cover_600px.jpg"
+# files for embedding.
 #
 # Prereqs:
+#   parallel
 #   imagemagick
 #
-# Arguments:
-#   Source directory
+# Globals:
+#   FLAC_DIR
 #
 # Usage:
-#   ./convert_covers.sh /mnt/Data/Music
+#   ./convert_covers.sh
 
 set -eu
 
-source_dir=$1
+function doit() {
+  input_file="$1"
+  output_file="$2"
 
-cd "$source_dir"
+  if [[ -f "$output_file" ]]; then
+    # If output file already exists, skip.
+    exit 0
+  fi
 
-readarray -t cover_files < <(find . -name "cover.jpg")
+  # By default, the ImageMagick convert tool estimates an appropriate quality
+  # level based on the input image. If an estimate cannot be made, quality is
+  # set to 92 instead. We want a consistent quality level for all album covers,
+  # so we explicitly set the quality to 92.
+  # Ref: https://www.imagemagick.org/script/command-line-options.php#quality
+  magick convert "$input_file" -resize 600x600 -quality 92 "$output_file"
+}
 
-for input_file in "${cover_files[@]}"; do
-  echo "Converting $input_file"
+# Ensure the input directory exists.
+if [[ ! -d "$FLAC_DIR" ]]; then
+  echo "Input directory '$FLAC_DIR' does not exist"
+  exit 1
+fi
 
-  output_dir=$(dirname "$input_file")
+# Export function, allowing child processes to inherit it.
+export -f doit
 
-  # By default, the ImageMagick convert tool estimates an appropriate quality level based on the input image.
-  # If an estimate cannot be made, quality is set to 92 instead (ref: https://www.imagemagick.org/script/command-line-options.php#quality).
-  # We want a consistent quality level for all album covers, so we explicitly set the quality to 92.
-
-  # convert "$input_file" -resize 300x300 -quality 92 "$output_dir/cover_300px.jpg"
-  convert "$input_file" -resize 600x600 -quality 92 "$output_dir/cover_600px.jpg"
-  # convert "$input_file" -resize 1200x1200 -quality 92 "$output_dir/cover_1200px.jpg"
-done
+# Convert "cover.jpg" files in parallel child processes.
+cd "$FLAC_DIR"
+find . -name 'cover.jpg' | sort | parallel --progress 'doit {} {.}_600px.jpg'
