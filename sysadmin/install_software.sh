@@ -15,6 +15,7 @@ packages=(
   whipper
   picard
   rsgain
+  foliate
 )
 
 flatpaks=(
