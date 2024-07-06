@@ -22,6 +22,16 @@ My utility scripts for automating tasks on Fedora Linux.
     ./sysadmin/install_software.sh
     ```
 
+## System specifications
+
+My system specifications at the time of writing:
+
+- **Operating System**: Fedora Linux 40 (Workstation Edition)
+- **Hardware Model**: MSI MS-7916
+- **Processor:** Intel® Core™ i5-4690K × 4
+- **Memory:** 16.0 GiB
+- **Graphics:** NVIDIA GeForce GTX 970
+
 ## License
 
 This project is licensed under the terms of the [MIT license](LICENSE).
