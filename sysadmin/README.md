@@ -1,4 +1,4 @@
-# System administration
+# System administration scripts
 
 This directory contains scripts for configuration, operation and upkeep of Fedora Linux.
 

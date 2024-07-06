@@ -11,7 +11,7 @@
 #   FLAC_DIR
 #
 # Usage:
-#   ./convert_covers.sh
+#   ./convert_cover.sh
 
 set -eu
 
