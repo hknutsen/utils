@@ -20,7 +20,7 @@ Append to `~/.bashrc` to set permanently.
 Convert all `cover.jpg` files in `FLAC_DIR` to `cover_600px.jpg` files, which will be used by MusicBrainz Picard for embedding in FLAC files:
 
 ```bash
-./convert_covers.sh
+./convert_cover.sh
 ```
 
 Will be irreleveant if MusicBrainz Picard implements cover art image processing options (see [relevant ticket](https://tickets.metabrainz.org/browse/PICARD-2121)).
