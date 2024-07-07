@@ -13,8 +13,8 @@ packages=(
   flac
   opus-tools
   whipper
-  picard
   rsgain
+  picard
   foliate
 )
 
