@@ -1,10 +1,17 @@
 #! /bin/bash
 
-# Mounts/unmounts filesystem with read-only permissions.
+# Mounts filesystem with read-only permissions to target directory
+# /run/media/<USER_NAME>/<LABEL>.
+#
+# Options:
+#   -l  specifies the label of the filesystem to mount
+#   -u  unmount filesystem
 #
 # Usage:
-# - Mount filesystem with label "Media": ./mount_readonly_filesystem.sh -l Media
-# - Unmount filesystem with label "Media": ./mount_readonly_filesystem.sh -l Media -u
+#   ./mount_readonly_filesystem.sh -l Media
+#   ./mount_readonly_filesystem.sh -l Media -u
+
+set -eu
 
 label=""
 unmount=false
