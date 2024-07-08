@@ -30,6 +30,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 
     The following flatpaks will be installed:
 
+    - `com.bitwarden.desktop`: Bitwarden password manager.
     - `com.spotify.Client`: Spotify audio streaming.
 
 1. Restart your computer to finish installation of drivers.

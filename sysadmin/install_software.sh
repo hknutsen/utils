@@ -19,6 +19,7 @@ packages=(
 )
 
 flatpaks=(
+  com.bitwarden.desktop
   com.spotify.Client
 )
 
