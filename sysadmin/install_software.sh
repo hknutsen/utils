@@ -24,12 +24,12 @@ sudo dnf upgrade
 info 'Adding software repositories...'
 
 # Enable RPM Fusion repositories.
-# Required for installing proprietary software, such as Nvidia drivers.
+# Required for installing proprietary software, such as NVIDIA drivers.
 # Ref: https://docs.fedoraproject.org/en-US/quick-docs/rpmfusion-setup/
 sudo dnf install "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
 sudo dnf install "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
-# Add VS Code repository.
+# Add Visual Studio Code repository.
 # Ref: https://code.visualstudio.com/docs/setup/linux
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo "[code]
