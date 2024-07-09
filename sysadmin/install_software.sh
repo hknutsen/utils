@@ -2,15 +2,26 @@
 
 set -eu
 
+NC='\033[0;37m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+
+function info {
+  echo -e "${YELLOW}$1${NC}"
+}
+
 ################################################################################
 # UPDATE SYSTEM SOFTWARE
 ################################################################################
 
+info 'Updating system software...'
 sudo dnf upgrade
 
 ################################################################################
 # ADD SOFTWARE REPOSITORIES
 ################################################################################
+
+info 'Adding software repositories...'
 
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software, such as Nvidia drivers.
@@ -32,6 +43,8 @@ sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 ################################################################################
 # INSTALL PACKAGES
 ################################################################################
+
+info 'Installing packages...'
 
 packages=(
   deja-dup
@@ -55,6 +68,8 @@ sudo dnf install "${packages[@]}"
 # INSTALL FLATPAKS
 ################################################################################
 
+info 'Installing flatpaks...'
+
 flatpaks=(
   com.bitwarden.desktop
   com.spotify.Client
@@ -66,4 +81,5 @@ flatpak install flathub "${flatpaks[@]}"
 # FINISH INSTALLATION
 ################################################################################
 
-echo 'Restart your computer to finish installation of software.'
+echo -e "${GREEN}Done! \
+Restart your computer to finish installation of software.${NC}"
