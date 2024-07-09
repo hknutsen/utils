@@ -2,6 +2,9 @@
 
 set -eu
 
+# Set system hostname
+hostname henrik-desktop
+
 # Disable mouse acceleration
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
