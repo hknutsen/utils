@@ -15,7 +15,7 @@ function info {
 ################################################################################
 
 info 'Updating system software...'
-sudo dnf upgrade
+sudo dnf upgrade --refresh
 
 ################################################################################
 # ADD SOFTWARE REPOSITORIES
