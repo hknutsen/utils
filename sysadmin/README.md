@@ -6,6 +6,12 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 
 ### Setup Fedora Linux
 
+1. Configure system:
+
+    ```bash
+    ./configure_system.sh
+    ```
+
 1. Install software:
 
     ```bash
@@ -34,9 +40,3 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     - `com.spotify.Client`: Spotify audio streaming.
 
 1. Restart your computer to finish installation of drivers.
-
-1. Configure system:
-
-    ```bash
-    ./configure_system.sh
-    ```
