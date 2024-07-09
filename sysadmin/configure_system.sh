@@ -3,7 +3,7 @@
 set -eu
 
 # Set system hostname
-hostname henrik-desktop
+sudo hostname henrik-desktop
 
 ################################################################################
 # CONFIGURE GNOME (DESKTOP ENVIRONMENT)
