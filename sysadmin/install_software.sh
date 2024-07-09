@@ -48,7 +48,6 @@ info 'Installing packages...'
 
 packages=(
   deja-dup
-  thunderbird
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
   code
