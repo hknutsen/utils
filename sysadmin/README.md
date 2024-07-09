@@ -21,7 +21,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     The following packages will be installed:
 
     - `deja-dup`: Simple backup tool.
-    - `thunderbird`: Mozilla Thunderbird email client.
+    - `geary`: Simple email client.
     - `akmod-nvidia`: NVIDIA graphics driver.
     - `xorg-x11-drv-nvidia-cuda`: NVIDIA CUDA driver.
     - `code`: Visual Studio Code.

@@ -48,6 +48,7 @@ info 'Installing packages...'
 
 packages=(
   deja-dup
+  geary
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
   code
