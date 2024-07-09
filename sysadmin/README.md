@@ -35,8 +35,8 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 
 1. Restart your computer to finish installation of drivers.
 
-1. Configure GNOME (desktop environment):
+1. Configure system:
 
     ```bash
-    ./configure_gnome.sh
+    ./configure_system.sh
     ```
