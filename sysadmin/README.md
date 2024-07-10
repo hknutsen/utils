@@ -40,3 +40,9 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     - `com.spotify.Client`: Spotify audio streaming.
 
 1. Restart your computer to finish installation of drivers.
+
+### Restore backup
+
+1. Open `Backups`.
+1. Restore from backup.
+1. Reboot `sudo reboot`.
