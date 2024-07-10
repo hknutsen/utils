@@ -48,12 +48,14 @@ While we use Deja Dup to backup data and most settings, GNOME settings rely on d
 1. Backup:
 
     ```bash
+    cd ~
     dconf dump / > "<BACKUP_FILE>"
     ```
 
 2. Restore:
 
     ```bash
+    cd ~
     dconf load / > "<BACKUP_FILE>"
     ```
 
