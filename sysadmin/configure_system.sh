@@ -5,16 +5,13 @@ set -eu
 # Set system hostname
 sudo hostname henrik-desktop
 
-# TODO(@hknutsen): mount disks
-
-# TODO(@hknutsen): restore Duplicity backup (`duplicity restore`)
-
 ################################################################################
 # CONFIGURE GNOME (DESKTOP ENVIRONMENT)
 ################################################################################
 
 # Tell dconf to synchronize the binary database with a plain text keyfile in
-# ${XDG_CONFIG_HOME}/dconf/user.txt.
+# ~/.config/dconf/user.txt. This allows us to backup and restore our GNOME
+# settings using deja-dup.
 # Ref: https://wiki.gnome.org/Projects/dconf/SystemAdministrators
 echo 'service-db:keyfile/user
 user-db:user
