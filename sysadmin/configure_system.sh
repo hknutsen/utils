@@ -14,7 +14,7 @@ sudo hostname henrik-desktop
 ################################################################################
 
 # Ref: https://wiki.gnome.org/Projects/dconf/SystemAdministrators
-sudo echo 'service-db:keyfile/user
+echo 'service-db:keyfile/user
 user-db:user
 system-db:local
 system-db:site

@@ -9,13 +9,13 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Configure system:
 
     ```bash
-    ./configure_system.sh
+    sudo ./configure_system.sh
     ```
 
 1. Install software:
 
     ```bash
-    ./install_software.sh
+    sudo ./install_software.sh
     ```
 
     The following packages will be installed:
