@@ -9,11 +9,13 @@ sudo hostname henrik-desktop
 # CONFIGURE GNOME (DESKTOP ENVIRONMENT)
 ################################################################################
 
-# Disable mouse acceleration
-gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
-
-# Always show accessibility menu in the top bar
-gsettings set org.gnome.desktop.a11y always-show-universal-access-status true
-
-# Increase the size of all text in the user interface to 125%
-# gsettings set org.gnome.desktop.interface text-scaling-factor 1.25
+# Tell dconf to synchronize the binary database with a plain text keyfile in
+# ~/.config/dconf/user.txt. This allows us to backup and restore our GNOME
+# settings using deja-dup.
+# Ref: https://wiki.gnome.org/Projects/dconf/SystemAdministrators
+echo 'service-db:keyfile/user
+user-db:user
+system-db:local
+system-db:site
+system-db:distro' |
+sudo tee /etc/dconf/profile/user > /dev/null
