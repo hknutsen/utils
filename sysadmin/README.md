@@ -14,6 +14,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 
     The following packages will be installed:
 
+    - `gnome-extensions-app`: Manage GNOME extensions.
     - `deja-dup`: Simple backup tool.
     - `geary`: Simple email client.
     - `akmod-nvidia`: NVIDIA graphics driver.

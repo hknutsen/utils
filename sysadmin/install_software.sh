@@ -50,6 +50,7 @@ sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 info 'Installing packages...'
 
 packages=(
+  gnome-extensions-app
   deja-dup
   geary
   akmod-nvidia
