@@ -17,4 +17,5 @@ echo 'service-db:keyfile/user
 user-db:user
 system-db:local
 system-db:site
-system-db:distro' > /etc/dconf/profile/user
+system-db:distro' |
+sudo tee /etc/dconf/profile/user > /dev/null
