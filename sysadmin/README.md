@@ -56,6 +56,6 @@ While we use Deja Dup to backup data and most settings, GNOME settings rely on d
 
     ```bash
     cd ~
-    dconf load / > "<BACKUP_FILE>"
+    dconf load / < "<BACKUP_FILE>"
     ```
 
