@@ -84,5 +84,7 @@ flatpak install flathub "${flatpaks[@]}"
 # FINISH INSTALLATION
 ################################################################################
 
-echo -e "${GREEN}Done! \
-Restart your computer to finish installation of software.${NC}"
+echo -e "${GREEN}Done!${NC}"
+
+modinfo -F version nvidia > /dev/null 2>&1 ||
+echo -e "${YELLOW}Restart your computer to finish installation of drivers.${NC}"
