@@ -41,8 +41,19 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 
 1. Restart your computer to finish installation of drivers.
 
-### Restore backup
+### Backup/restore GNOME settings
 
-1. Open `Backups`.
-1. Restore from backup.
-1. Reboot `sudo reboot`.
+While we use Deja Dup to backup data and most settings, GNOME settings rely on dconf,
+
+1. Backup:
+
+    ```bash
+    dconf dump / > "<BACKUP_FILE>"
+    ```
+
+2. Restore:
+
+    ```bash
+    dconf load / > "<BACKUP_FILE>"
+    ```
+
