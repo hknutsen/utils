@@ -88,4 +88,4 @@ echo -e "${GREEN}Done!${NC}"
 
 # Check if NVIDIA drivers are installed.
 modinfo -F version nvidia > /dev/null 2>&1 ||
-echo -e "${YELLOW}Restart your computer to finish installation of drivers.${NC}"
+info 'Restart your computer to finish installation of drivers.'
