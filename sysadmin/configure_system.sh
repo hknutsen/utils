@@ -13,7 +13,8 @@ sudo hostname henrik-desktop
 # CONFIGURE GNOME (DESKTOP ENVIRONMENT)
 ################################################################################
 
-# Tell dconf to synchronize the binary database with a plain text keyfile in ${XDG_CONFIG_HOME}/dconf/user.txt.
+# Tell dconf to synchronize the binary database with a plain text keyfile in
+# ${XDG_CONFIG_HOME}/dconf/user.txt.
 # Ref: https://wiki.gnome.org/Projects/dconf/SystemAdministrators
 echo 'service-db:keyfile/user
 user-db:user
