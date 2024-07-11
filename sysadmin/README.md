@@ -45,5 +45,5 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Restore home directory from backup:
 
     ```bash
-    deja-dup
+    deja-dup --restore "$HOME"
     ```
