@@ -19,9 +19,3 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     ```bash
     ./configure_system.sh
     ```
-
-1. Restore home directory from backup:
-
-    ```bash
-    deja-dup --restore "$HOME"
-    ```
