@@ -19,7 +19,7 @@ My utility scripts for automating tasks on Fedora Linux.
 1. Run a script from this repository. For example, to install software, run the following script:
 
     ```bash
-    sudo ./sysadmin/install_software.sh
+    ./sysadmin/install_software.sh
     ```
 
 ## System specifications
