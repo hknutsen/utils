@@ -13,14 +13,12 @@ function info {
 ################################################################################
 # UPDATE SYSTEM SOFTWARE
 ################################################################################
-
 info 'Updating system software...'
 sudo dnf upgrade --refresh
 
 ################################################################################
 # ADD SOFTWARE REPOSITORIES
 ################################################################################
-
 info 'Adding software repositories...'
 
 # Enable RPM Fusion repositories.
@@ -30,7 +28,6 @@ info 'Adding software repositories...'
 # - https://rpmfusion.org/Howto/NVIDIA
 sudo dnf install \
   "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-
 sudo dnf install \
   "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 
@@ -48,9 +45,7 @@ sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 ################################################################################
 # INSTALL PACKAGES
 ################################################################################
-
 info 'Installing packages...'
-
 packages=(
   gnome-extensions-app
   deja-dup
@@ -67,26 +62,21 @@ packages=(
   picard
   foliate
 )
-
 sudo dnf install "${packages[@]}"
 
 ################################################################################
 # INSTALL FLATPAKS
 ################################################################################
-
 info 'Installing flatpaks...'
-
 flatpaks=(
   com.bitwarden.desktop
   com.spotify.Client
 )
-
 flatpak install flathub "${flatpaks[@]}"
 
 ################################################################################
 # FINISH INSTALLATION
 ################################################################################
-
 echo -e "${GREEN}Done!${NC}"
 
 # Check if NVIDIA drivers are installed.
