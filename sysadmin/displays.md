@@ -1,6 +1,6 @@
 # Displays
 
-This document contains useful commands for managin display settings.
+This document contains useful commands for managing display settings.
 
 ## Set system monitors configuration
 
