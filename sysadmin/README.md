@@ -9,7 +9,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Install software:
 
     ```bash
-    sudo ./install_software.sh
+    ./install_software.sh
     ```
 
     The following packages will be installed:
@@ -39,7 +39,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Configure system:
 
     ```bash
-    sudo ./configure_system.sh
+    ./configure_system.sh
     ```
 
 1. Restore home directory from backup:
