@@ -47,3 +47,11 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     ```bash
     deja-dup
     ```
+
+1. Copy system to use current user monitor setup by default:
+
+    ```bash
+    sudo cp ~/.config/monitors.xml /var/lib/gdm/.config/monitors.xml
+    ```
+
+    This ensures that the login screen is displayed on the display configured as primary by the current user.
