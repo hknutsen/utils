@@ -16,7 +16,7 @@ for label in "${disk_labels[@]}"; do
   line="LABEL=$label $mount_point auto nosuid,nodev,nofail,x-gvfs-show 0 0"
   # Use grep to check if disk is already configured for auto-mount
   grep --quiet --fixed-strings -- "$line" "$disk_config" ||
-  echo "$line" | sudo tee -a "$disk_config" > /dev/null
+  echo "$line" | sudo tee --append "$disk_config" > /dev/null
 done
 systemctl daemon-reload
 sudo mount -a # Mount all disks configured for auto-mount
