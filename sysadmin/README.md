@@ -12,7 +12,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     ./install_software.sh
     ```
 
-1. Restart your computer to finish installation of drivers.
+1. Restart your computer to finish installation of NVIDIA drivers.
 
 1. Configure system:
 
