@@ -8,7 +8,12 @@ set -eu
 disk_config='/etc/fstab'
 disk_labels=('Data' 'Backup') # Auto-mount disks with these labels
 for label in "${disk_labels[@]}"; do
-  line="LABEL=$label /mnt/$label auto nosuid,nodev,nofail,x-gvfs-show 0 0"
+  mount_point="/mnt/$label"
+  if [[ ! -d "$mount_point" ]]; then
+    echo "Creating directory $mount_point"
+    sudo mkdir -p "$mount_point"
+  fi
+  line="LABEL=$label $mount_point auto nosuid,nodev,nofail,x-gvfs-show 0 0"
   # Use grep to check if disk is already configured for auto-mount
   grep -qF -- "$line" "$disk_config" ||
   echo "$line" | sudo tee -a "$disk_config" > /dev/null
