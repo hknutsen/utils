@@ -5,7 +5,7 @@ set -eu
 ################################################################################
 # CONFIGURE DISKS
 ################################################################################
-disk_config='/etc/fstab'
+fstap_file='/etc/fstab'
 disk_labels=('Data' 'Backup') # Auto-mount disks with these labels
 for label in "${disk_labels[@]}"; do
   mount_point="/mnt/$label"
@@ -15,11 +15,11 @@ for label in "${disk_labels[@]}"; do
   fi
   line="LABEL=$label $mount_point auto nosuid,nodev,nofail,x-gvfs-show 0 0"
   # Use grep to check if disk is already configured for auto-mount
-  grep --quiet --fixed-strings -- "$line" "$disk_config" ||
-  echo "$line" | sudo tee --append "$disk_config" > /dev/null
+  grep --quiet --fixed-strings -- "$line" "$fstap_file" ||
+  echo "$line" | sudo tee --append "$fstap_file" > /dev/null
 done
 systemctl daemon-reload
-sudo mount -a # Mount all disks configured for auto-mount
+sudo mount --all # Mount all disks configured in fstab file
 
 ################################################################################
 # CONFIGURE GNOME (DESKTOP ENVIRONMENT)
