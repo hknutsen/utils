@@ -13,6 +13,7 @@ for label in "${disk_labels[@]}"; do
   grep -qF -- "$line" "$disk_config" ||
   echo "$line" | sudo tee -a "$disk_config" > /dev/null
 done
+systemctl daemon-reload
 sudo mount -a # Mount all disks configured for auto-mount
 
 ################################################################################
