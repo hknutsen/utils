@@ -76,9 +76,6 @@ flatpak install flathub "${flatpaks[@]}"
 ################################################################################
 # FINISH INSTALLATION
 ################################################################################
-
-# Check if NVIDIA drivers are installed.
 modinfo -F version nvidia > /dev/null 2>&1 ||
-info 'Restart your computer to finish installation of drivers.'
-
+info 'Restart your computer to finish installation of NVIDIA drivers.'
 echo -e "${GREEN}Done!${NC}"
