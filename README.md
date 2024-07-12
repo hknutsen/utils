@@ -16,11 +16,7 @@ My utility scripts for automating tasks on Fedora Linux.
     git clone https://github.com/hknutsen/utils.git && cd utils
     ```
 
-1. Run a script from this repository. For example, to install software, run the following script:
-
-    ```bash
-    ./sysadmin/install_software.sh
-    ```
+1. Run a script from this repository.
 
 ## System specifications
 
