@@ -6,6 +6,9 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 
 ### Setup Fedora Linux
 
+> [!IMPORTANT]
+> The following steps should be performed immediately after the installation and initial setup of Fedora Linux.
+
 1. Install software:
 
     ```bash
