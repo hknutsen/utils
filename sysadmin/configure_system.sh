@@ -5,8 +5,8 @@ set -eu
 ################################################################################
 # CONFIGURE DISKS
 ################################################################################
-fstab_file='/etc/fstab'
 disk_labels=('Data' 'Backup') # Auto-mount disks with these labels
+fstab_file='/etc/fstab'
 for label in "${disk_labels[@]}"; do
   mount_point="/mnt/$label"
   if [[ ! -d "$mount_point" ]]; then
