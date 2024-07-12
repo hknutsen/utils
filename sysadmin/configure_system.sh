@@ -18,7 +18,7 @@ for label in "${disk_labels[@]}"; do
   grep --quiet --fixed-strings -- "$line" "$fstap_file" ||
   echo "$line" | sudo tee --append "$fstap_file" > /dev/null
 done
-systemctl daemon-reload
+systemctl daemon-reload # Reload systemctl daemon to read updated fstab file
 sudo mount --all # Mount all disks configured in fstab file
 
 ################################################################################
