@@ -22,5 +22,5 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
     ./configure_system.sh
     ```
 
-1. Open the `Backups` application and restore your home directory from the backup at `/mnt/Backup/duplicity`.
+1. Open the `Backups` application and restore your home directory from your backup at `/mnt/Backup`.
 1. Restart your computer to apply the user settings that were restored from the backup.
