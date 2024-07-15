@@ -2,14 +2,19 @@
 
 set -eu
 
-hostnamectl set-hostname henrik-desktop
+readonly HOSTNAME='henrik-desktop'
+readonly FILESYSTEM_LABELS=('Data' 'Backup')
+
+################################################################################
+# CONFIGURE HOSTNAME
+################################################################################
+hostnamectl set-hostname "$HOSTNAME"
 
 ################################################################################
 # CONFIGURE FILESYSTEMS (DISKS)
 ################################################################################
-filesystem_labels=('Data' 'Backup') # Auto-mount disks with these labels
 fstab_file='/etc/fstab' # Filesystem Table file
-for label in "${filesystem_labels[@]}"; do
+for label in "${FILESYSTEM_LABELS[@]}"; do
   mount_point="/mnt/$label"
   if [[ ! -d "$mount_point" ]]; then
     echo "Creating directory $mount_point"
