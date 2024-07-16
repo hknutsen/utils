@@ -26,9 +26,12 @@ info 'Adding software repositories...'
 # Refs:
 # - https://docs.fedoraproject.org/en-US/quick-docs/rpmfusion-setup/
 # - https://rpmfusion.org/Howto/NVIDIA
+rpmfusion_url='https://download1.rpmfusion.org'
+$os='fedora'
+rpm_release=$(rpm -E "%$os")
 sudo dnf install \
-  "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-  "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+  "$rpmfusion_url/free/$os/rpmfusion-free-release-$rpm_release.noarch.rpm" \
+  "$rpmfusion_url/nonfree/$os/rpmfusion-nonfree-release-$rpm_release.noarch.rpm"
 
 # Add Visual Studio Code repository.
 # Ref: https://code.visualstudio.com/docs/setup/linux
