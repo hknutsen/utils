@@ -33,6 +33,10 @@ sudo dnf install \
   "$rpmfusion_url/free/$os/rpmfusion-free-release-$os_version.noarch.rpm" \
   "$rpmfusion_url/nonfree/$os/rpmfusion-nonfree-release-$os_version.noarch.rpm"
 
+# Add Mullvad repository.
+sudo dnf config-manager \
+  --add-repo https://repository.mullvad.net/rpm/stable/mullvad.repo
+
 # Add Visual Studio Code repository.
 # Ref: https://code.visualstudio.com/docs/setup/linux
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -64,6 +68,7 @@ packages=(
   picard
   foliate
   steam
+  mullvad-vpn
   torbrowser-launcher
 )
 sudo dnf install "${packages[@]}"
