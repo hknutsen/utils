@@ -78,7 +78,6 @@ sudo dnf install "${packages[@]}"
 ################################################################################
 info 'Installing flatpaks...'
 flatpaks=(
-  com.bitwarden.desktop
   com.spotify.Client
 )
 flatpak install flathub "${flatpaks[@]}"
