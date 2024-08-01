@@ -22,7 +22,7 @@ sudo dnf upgrade --refresh
 info 'Adding software repositories...'
 
 # Enable RPM Fusion repositories.
-# Required for installing proprietary software such as NVIDIA drivers and Steam.
+# Required for installing proprietary software such as NVIDIA drivers.
 # Refs:
 # - https://docs.fedoraproject.org/en-US/quick-docs/rpmfusion-setup/
 # - https://rpmfusion.org/Howto/NVIDIA
