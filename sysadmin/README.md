@@ -57,8 +57,8 @@ Read `/usr/share/doc/akmods/README.secureboot` for more information.
     systemctl reboot --firmware-setup
     ```
 
-    > [!NOTE]
-    > Entering firmware setup first ensures your keyboard is detected before entering MOK.
+> [!NOTE]
+> Entering firmware setup first ensures your keyboard is detected before entering MOK.
 
 1. Exit firmware setup to enter MOK.
 1. Select `Enroll MOK`.
