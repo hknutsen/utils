@@ -9,3 +9,17 @@ Tell the firmware to show the setup menu on next boot, then shut down and reboot
 ```bash
 systemctl reboot --firmware-setup
 ```
+
+## Update firmware
+
+1. Get firmware updates:
+
+    ```bash
+    sudo fwupdmgr get-updates
+    ```
+
+1. Update firmware:
+
+    ```bash
+    sudo fwupdmgr update
+    ```
