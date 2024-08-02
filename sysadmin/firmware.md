@@ -10,6 +10,12 @@ Tell the firmware to show the setup menu on next boot, then shut down and reboot
 systemctl reboot --firmware-setup
 ```
 
+## Check firmware security status
+
+```bash
+fwupdmgr security
+```
+
 ## Update firmware
 
 1. Get firmware updates:
