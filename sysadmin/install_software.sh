@@ -57,6 +57,7 @@ packages=(
   code
   gh
   parallel
+  quodlibet
   flac
   opus-tools
   whipper
