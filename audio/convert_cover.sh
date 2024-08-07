@@ -48,7 +48,9 @@ export NC
 export YELLOW
 export -f doit
 
-# Convert "cover.jpg" files in parallel child processes.
+# Convert "cover.jpg" and "cover.png" files in parallel child processes.
 cd "$FLAC_DIR"
-find . -name 'cover.jpg' | sort | parallel --progress 'doit {} {.}_600px.jpg'
+find . -name 'cover.jpg' -o -name 'cover.png' \
+  | sort \
+  | parallel --progress 'doit {} {.}_600px.jpg'
 echo -e "${GREEN}Done!${NC}"
