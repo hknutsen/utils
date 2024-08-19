@@ -30,6 +30,10 @@ for label in "${FILESYSTEM_LABELS[@]}"; do
   # Check if disk is already configured for auto-mount
   grep --quiet --fixed-strings -- "$line" "$fstab_file" ||
   echo "$line" | sudo tee --append "$fstab_file" > /dev/null
+  # Set read, write and execute permissions for owner, group and others at
+  # mount point. Permissions are defined in numerical format.
+  # Ref: https://en.wikipedia.org/wiki/Chmod#Numerical_permissions
+  sudo chmod 0777 "$mount_point"
 done
 sudo systemctl daemon-reload # Reload daemon to read updated fstab file
 sudo mount --all # Mount all disks configured in fstab file
