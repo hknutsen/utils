@@ -21,6 +21,9 @@ sudo dnf upgrade --refresh
 ################################################################################
 info 'Adding software repositories...'
 
+# Install third party repositories.
+sudo dnf install fedora-workstation-repositories
+
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software such as NVIDIA drivers.
 # Refs:
