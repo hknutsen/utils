@@ -55,7 +55,7 @@ packages=(
   gnome-tweaks
   gnome-extensions-app
   deja-dup
-  thunderbird
+  geary
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
   code
