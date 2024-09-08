@@ -24,6 +24,9 @@ info 'Adding software repositories...'
 # Install third party repositories.
 sudo dnf install fedora-workstation-repositories
 
+# Enable third party Google Chrome repository.
+sudo dnf config-manager --set-enabled google-chrome
+
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software such as NVIDIA drivers.
 # Refs:
@@ -56,6 +59,7 @@ packages=(
   gnome-extensions-app
   deja-dup
   geary
+  google-chrome-stable
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
   code
