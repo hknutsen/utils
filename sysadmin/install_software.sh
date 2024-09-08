@@ -72,7 +72,6 @@ packages=(
   rsgain
   picard
   foliate
-  torbrowser-launcher
 )
 sudo dnf install "${packages[@]}"
 
