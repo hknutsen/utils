@@ -50,6 +50,11 @@ gpgcheck=1
 gpgkey=https://packages.microsoft.com/keys/microsoft.asc' |
 sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
+# Add HashiCorp repository.
+# Ref: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+sudo dnf config-manager \
+  --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+
 ################################################################################
 # INSTALL PACKAGES
 ################################################################################
@@ -64,6 +69,7 @@ packages=(
   xorg-x11-drv-nvidia-cuda
   code
   gh
+  terraform
   parallel
   quodlibet
   flac
