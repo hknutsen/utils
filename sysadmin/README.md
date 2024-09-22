@@ -2,6 +2,14 @@
 
 This directory contains scripts for configuration, operation and upkeep of Fedora Linux.
 
+## Prerequisites
+
+1. Install Ansible:
+
+    ```bash
+    sudo dnf install ansible
+    ```
+
 ## Usage
 
 ### Setup Fedora Linux
