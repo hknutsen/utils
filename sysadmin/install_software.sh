@@ -21,11 +21,6 @@ sudo dnf upgrade --refresh
 ################################################################################
 info 'Adding software repositories...'
 
-# Enable Flathub repository.
-# Ref: https://flathub.org/setup/Fedora
-flatpak remote-add --if-not-exists \
-  flathub 'https://dl.flathub.org/repo/flathub.flatpakrepo'
-
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software such as NVIDIA drivers.
 # Refs:
@@ -37,6 +32,11 @@ os_version=$(rpm -E %fedora)
 sudo dnf install \
   "$rpmfusion_url/free/$os/rpmfusion-free-release-$os_version.noarch.rpm" \
   "$rpmfusion_url/nonfree/$os/rpmfusion-nonfree-release-$os_version.noarch.rpm"
+
+# Enable Flathub repository.
+# Ref: https://flathub.org/setup/Fedora
+flatpak remote-add --if-not-exists \
+  flathub 'https://dl.flathub.org/repo/flathub.flatpakrepo'
 
 ################################################################################
 # INSTALL PACKAGES
@@ -61,6 +61,15 @@ packages=(
   foliate
 )
 sudo dnf install "${packages[@]}"
+
+################################################################################
+# INSTALL FLATPAKS
+################################################################################
+info 'Installing flatpaks...'
+flatpaks=(
+  com.bitwarden.desktop
+)
+flatpak install flathub "${flatpaks[@]}"
 
 ################################################################################
 # FINISH INSTALLATION
