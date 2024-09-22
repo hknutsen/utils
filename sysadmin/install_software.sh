@@ -33,7 +33,7 @@ sudo dnf install \
   "$rpmfusion_url/free/$os/rpmfusion-free-release-$os_version.noarch.rpm" \
   "$rpmfusion_url/nonfree/$os/rpmfusion-nonfree-release-$os_version.noarch.rpm"
 
-###############################################################################
+################################################################################
 # INSTALL PACKAGES
 ################################################################################
 info 'Installing packages...'
