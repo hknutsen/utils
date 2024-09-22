@@ -1,0 +1,104 @@
+- hosts: localhost
+  become: yes
+  tasks:
+    # Upgrade packages
+    - name: Upgrade packages
+      dnf:
+        name: "*"
+        state: latest
+
+    # Enable software repositories
+    - name: Enable RPM Fusion free repository
+      dnf:
+        name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+    - name: Enable RPM Fusion nonfree repository
+      dnf:
+        name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+    - name: Enable Flathub repository
+      flatpak_remote:
+        name: flathub
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        state: present
+
+    # Install packages
+    - name: Install GNOME Tweaks
+      dnf:
+        name: gnome-tweaks
+        state: present
+    - name: Install GNOME Extensions
+      dnf:
+        name: gnome-extensions-app
+        state: present
+    - name: Install Deja Dup Backups
+      dnf:
+        name: deja-dup
+        state: present
+    - name: Install Geary
+      dnf:
+        name: geary
+        state: present
+    - name: Install Tor Browser
+      dnf:
+        name: torbrowser-launcher
+        state: present
+    - name: Install NVIDIA Driver
+      dnf:
+        name: akmod-nvidia
+        state: present
+    - name: Install CUDA Driver
+      dnf:
+        name: xorg-x11-drv-nvidia-cuda
+        state: present
+    - name: Install GNU Parallel
+      dnf:
+        name: parallel
+        state: present
+    - name: Install GitHub CLI
+      dnf:
+        name: gh
+        state: present
+    - name: Install OpenTofu
+      dnf:
+        name: opentofu
+        state: present
+    - name: Remove Rhythmbox
+      dnf:
+        name: rhythmbox
+        state: absent
+    - name: Install Quod Libet
+      dnf:
+        name: quodlibet
+        state: present
+    - name: Install FLAC
+      dnf:
+        name: flac
+        state: present
+    - name: Install Opus Tools
+      dnf:
+        name: opus-tools
+        state: present
+    - name: Install Whipper
+      dnf:
+        name: whipper
+        state: present
+    - name: Install rsgain
+      dnf:
+        name: rsgain
+        state: present
+    - name: Install MusicBrainz Picard
+      dnf:
+        name: picard
+        state: present
+    - name: Install Foliate
+      dnf:
+        name: foliate
+        state: present
+
+    # Install flatpaks
+    - name: Install Bitwarden
+      flatpak:
+        remote: flathub
+        name: com.bitwarden.desktop
+        state: present

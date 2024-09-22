@@ -2,6 +2,14 @@
 
 This directory contains scripts for configuration, operation and upkeep of Fedora Linux.
 
+## Prerequisites
+
+1. Install Ansible:
+
+    ```bash
+    sudo dnf install ansible
+    ```
+
 ## Usage
 
 ### Setup Fedora Linux
@@ -12,7 +20,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Install software:
 
     ```bash
-    ./install_software.sh
+    ansible-playbook -K install_software.yml
     ```
 
 1. Restart your computer to finish installation of NVIDIA drivers.
