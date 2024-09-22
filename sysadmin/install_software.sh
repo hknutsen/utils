@@ -42,6 +42,7 @@ packages=(
   gnome-extensions-app
   deja-dup
   geary
+  torbrowser-launcher
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
   gh
