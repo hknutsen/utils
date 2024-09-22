@@ -1,0 +1,12 @@
+- hosts: localhost
+  tasks:
+    - name: Remove Rhythmbox
+      become: yes
+      package:
+        name: rhythmbox
+        state: absent
+    - name: Install Quod Libet
+      become: yes
+      package:
+        name: quodlibet
+        state: present
