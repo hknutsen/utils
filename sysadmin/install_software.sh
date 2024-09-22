@@ -57,15 +57,6 @@ packages=(
 sudo dnf install "${packages[@]}"
 
 ################################################################################
-# INSTALL FLATPAKS
-################################################################################
-info 'Installing flatpaks...'
-flatpaks=(
-  com.bitwarden.desktop
-)
-flatpak install flathub "${flatpaks[@]}"
-
-################################################################################
 # FINISH INSTALLATION
 ################################################################################
 modinfo -F version nvidia > /dev/null 2>&1 ||
