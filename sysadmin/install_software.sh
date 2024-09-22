@@ -23,7 +23,8 @@ info 'Adding software repositories...'
 
 # Enable Flathub repository.
 # Ref: https://flathub.org/setup/Fedora
-flatpak remote-add --if-not-exists flathub "https://dl.flathub.org/repo/flathub.flatpakrepo"
+flatpak remote-add --if-not-exists \
+  flathub 'https://dl.flathub.org/repo/flathub.flatpakrepo'
 
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software such as NVIDIA drivers.
