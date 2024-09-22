@@ -20,7 +20,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Install software:
 
     ```bash
-    ansible-playbook install_software.yml
+    ansible-playbook -K install_software.yml
     ```
 
 1. Restart your computer to finish installation of NVIDIA drivers.
