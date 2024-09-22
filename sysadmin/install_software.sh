@@ -21,12 +21,6 @@ sudo dnf upgrade --refresh
 ################################################################################
 info 'Adding software repositories...'
 
-# Install third party repositories.
-sudo dnf install fedora-workstation-repositories
-
-# Enable third party Google Chrome repository.
-sudo dnf config-manager --set-enabled google-chrome
-
 # Enable RPM Fusion repositories.
 # Required for installing proprietary software such as NVIDIA drivers.
 # Refs:
@@ -39,23 +33,7 @@ sudo dnf install \
   "$rpmfusion_url/free/$os/rpmfusion-free-release-$os_version.noarch.rpm" \
   "$rpmfusion_url/nonfree/$os/rpmfusion-nonfree-release-$os_version.noarch.rpm"
 
-# Add Visual Studio Code repository.
-# Ref: https://code.visualstudio.com/docs/setup/linux
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo '[code]
-name=Visual Studio Code
-baseurl=https://packages.microsoft.com/yumrepos/vscode
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.microsoft.com/keys/microsoft.asc' |
-sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
-
-# Add HashiCorp repository.
-# Ref: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
-sudo dnf config-manager \
-  --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
-
-################################################################################
+###############################################################################
 # INSTALL PACKAGES
 ################################################################################
 info 'Installing packages...'
@@ -64,12 +42,9 @@ packages=(
   gnome-extensions-app
   deja-dup
   geary
-  google-chrome-stable
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
-  code
   gh
-  terraform
   parallel
   quodlibet
   flac
