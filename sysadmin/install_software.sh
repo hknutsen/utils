@@ -50,8 +50,9 @@ packages=(
   torbrowser-launcher
   akmod-nvidia
   xorg-x11-drv-nvidia-cuda
-  gh
   parallel
+  gh
+  opentofu
   quodlibet
   flac
   opus-tools
