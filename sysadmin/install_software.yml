@@ -22,6 +22,22 @@
         flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
         state: present
 
+    # Enable VS Code repository
+    # Ref: https://code.visualstudio.com/docs/setup/linux
+    - name: Import Microsoft GPG key
+      rpm_key:
+        key: https://packages.microsoft.com/keys/microsoft.asc
+        state: present
+    - name: Enable VS Code repository
+      yum_repository:
+        name: code
+        description: Visual Studio Code
+        file: vscode
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        enabled: true
+        gpgcheck: true
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
     # Install packages
     - name: Install GNOME Tweaks
       dnf:
@@ -54,6 +70,10 @@
     - name: Install GNU Parallel
       dnf:
         name: parallel
+        state: present
+    - name: Install VS Code
+      dnf:
+        name: code
         state: present
     - name: Install GitHub CLI
       dnf:
