@@ -129,3 +129,8 @@
         remote: flathub
         name: com.bitwarden.desktop
         state: present
+    - name: Install Discord
+      community.general.flatpak:
+        remote: flathub
+        name: com.discordapp.Discord
+        state: present
