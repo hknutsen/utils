@@ -27,7 +27,7 @@ This directory contains scripts for configuration, operation and upkeep of Fedor
 1. Configure system:
 
     ```bash
-    ./configure_system.sh
+    ansible-playbook -K configure_system.yml
     ```
 
 1. Open the `Backups` application and restore your home directory from your backup at `/mnt/Backup`.
