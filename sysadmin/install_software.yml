@@ -134,3 +134,8 @@
         remote: flathub
         name: com.discordapp.Discord
         state: present
+    - name: Install Minecraft
+      community.general.flatpak:
+        remote: flathub
+        name: com.mojang.Minecraft
+        state: present
