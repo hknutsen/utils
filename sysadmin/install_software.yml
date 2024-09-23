@@ -118,6 +118,10 @@
       ansible.builtin.dnf:
         name: foliate
         state: present
+    - name: Install Solaar
+      ansible.builtin.dnf:
+        name: solaar
+        state: present
 
     # Install flatpaks
     - name: Install Bitwarden
