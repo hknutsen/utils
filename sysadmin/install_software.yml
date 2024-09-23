@@ -1,31 +1,26 @@
-- hosts: localhost
-  become: yes
+- name: Install software
+  hosts: localhost
+  become: true
   tasks:
-    # Upgrade packages
-    - name: Upgrade packages
-      dnf:
-        name: "*"
-        state: latest
-
     # Enable RPM Fusion repositories
     # Ref: https://rpmfusion.org/Configuration
     - name: Enable RPM Fusion free repository
-      dnf:
+      ansible.builtin.dnf:
         name: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
         state: present
     - name: Enable RPM Fusion nonfree repository
-      dnf:
+      ansible.builtin.dnf:
         name: https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
         state: present
 
     # Enable Visual Studio Code repository
     # Ref: https://code.visualstudio.com/docs/setup/linux
     - name: Import Microsoft GPG key
-      rpm_key:
+      ansible.builtin.rpm_key:
         key: https://packages.microsoft.com/keys/microsoft.asc
         state: present
     - name: Enable Visual Studio Code repository
-      yum_repository:
+      ansible.builtin.yum_repository:
         name: code
         description: Visual Studio Code
         file: vscode
@@ -37,92 +32,96 @@
     # Enable Flathub repository
     # Ref: https://flathub.org/setup/Fedora
     - name: Enable Flathub repository
-      flatpak_remote:
+      community.general.flatpak_remote:
         name: flathub
         flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
         state: present
 
     # Install packages
     - name: Install GNOME Tweaks
-      dnf:
+      ansible.builtin.dnf:
         name: gnome-tweaks
         state: present
     - name: Install GNOME Extensions
-      dnf:
+      ansible.builtin.dnf:
         name: gnome-extensions-app
         state: present
     - name: Install Deja Dup Backups
-      dnf:
+      ansible.builtin.dnf:
         name: deja-dup
         state: present
     - name: Install Geary
-      dnf:
+      ansible.builtin.dnf:
         name: geary
         state: present
     - name: Install Tor Browser
-      dnf:
+      ansible.builtin.dnf:
         name: torbrowser-launcher
         state: present
     - name: Install NVIDIA Driver
-      dnf:
+      ansible.builtin.dnf:
         name: akmod-nvidia
         state: present
     - name: Install CUDA Driver
-      dnf:
+      ansible.builtin.dnf:
         name: xorg-x11-drv-nvidia-cuda
         state: present
     - name: Install GNU Parallel
-      dnf:
+      ansible.builtin.dnf:
         name: parallel
         state: present
     - name: Install Visual Studio Code
-      dnf:
+      ansible.builtin.dnf:
         name: code
         state: present
     - name: Install GitHub CLI
-      dnf:
+      ansible.builtin.dnf:
         name: gh
         state: present
+    - name: Install Ansible-lint
+      ansible.builtin.dnf:
+        name: ansible-lint
+        state: present
     - name: Install OpenTofu
-      dnf:
+      ansible.builtin.dnf:
         name: opentofu
         state: present
     - name: Remove Rhythmbox
-      dnf:
+      ansible.builtin.dnf:
         name: rhythmbox
         state: absent
     - name: Install Quod Libet
-      dnf:
+      ansible.builtin.dnf:
         name: quodlibet
         state: present
     - name: Install FLAC
-      dnf:
+      ansible.builtin.dnf:
         name: flac
         state: present
     - name: Install Opus Tools
-      dnf:
+      ansible.builtin.dnf:
         name: opus-tools
         state: present
     - name: Install Whipper
-      dnf:
+      ansible.builtin.dnf:
         name: whipper
         state: present
     - name: Install rsgain
-      dnf:
+      ansible.builtin.dnf:
         name: rsgain
         state: present
     - name: Install MusicBrainz Picard
-      dnf:
+      ansible.builtin.dnf:
         name: picard
         state: present
     - name: Install Foliate
-      dnf:
+      ansible.builtin.dnf:
         name: foliate
         state: present
 
     # Install flatpaks
     - name: Install Bitwarden
-      flatpak:
+      community.general.flatpak:
         remote: flathub
         name: com.bitwarden.desktop
         state: present
