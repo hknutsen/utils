@@ -2,10 +2,12 @@
   hosts: localhost
   become: true
   tasks:
-    # Enable RPM Fusion repositories
+    # Enable RPM Fusion repositories.
+    # Required for installing proprietary software such as NVIDIA drivers.
     # Refs:
     # - https://rpmfusion.org/keys
     # - https://rpmfusion.org/Configuration
+    # - https://rpmfusion.org/Howto/NVIDIA
     - name: Import FPM Fusion free GPG key
       ansible.builtin.rpm_key:
         key: /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_major_version }}
