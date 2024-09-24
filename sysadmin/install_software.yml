@@ -41,6 +41,13 @@
         gpgcheck: true
         gpgkey: https://packages.microsoft.com/keys/microsoft.asc
 
+    # Install third-party repositores.
+    # Ref: https://docs.fedoraproject.org/en-US/workstation-working-group/third-party-repos/
+    - name: Install third-party repositores
+      ansible.builtin.dnf:
+        name: fedora-workstation-repositories
+        state: present
+
     # Enable Flathub repository
     # Ref: https://flathub.org/setup/Fedora
     - name: Enable Flathub repository
