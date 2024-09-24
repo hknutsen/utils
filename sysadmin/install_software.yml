@@ -37,6 +37,13 @@
         flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
         state: present
 
+    # Enable Google Chrome repository
+    # Ref: https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/
+    - name: Enable Google Chrome repository
+      community.general.dnf_config_manager:
+        name: google-chrome
+        state: enabled
+
     # Install packages
     - name: Install GNOME Tweaks
       ansible.builtin.dnf:
@@ -69,6 +76,10 @@
     - name: Install GNU Parallel
       ansible.builtin.dnf:
         name: parallel
+        state: present
+    - name: Install Google Chrome
+      ansible.builtin.dnf:
+        name: google-chrome-stable
         state: present
     - name: Install Visual Studio Code
       ansible.builtin.dnf:
