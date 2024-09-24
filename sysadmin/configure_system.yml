@@ -15,14 +15,14 @@
         path: /mnt/Data
         fstype: auto
         opts: nosuid,nodev,nofail,x-gvfs-show
-        state: present
+        state: mounted
     - name: Mount Backup Disk
       ansible.posix.mount:
         src: LABEL=Backup
         path: /mnt/Backup
         fstype: auto
         opts: nosuid,nodev,nofail,x-gvfs-show
-        state: present
+        state: mounted
 
     # Configure GNOME (desktop environment).
     #
