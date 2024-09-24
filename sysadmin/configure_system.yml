@@ -24,13 +24,13 @@
         opts: nosuid,nodev,nofail,x-gvfs-show
         state: mounted
 
-    # Configure GNOME (desktop environment).
+    # Configure GNOME (desktop environment):
     #
     # Tell dconf to synchronize the binary database with a plain text keyfile in
     # ~/.config/dconf/user.txt. This allows us to backup and restore our GNOME
     # settings using deja-dup.
     # Ref: https://wiki.gnome.org/Projects/dconf/SystemAdministrators
-    - name: Configure GNOME to store user settings in home directory
+    - name: Configure GNOME User Profile
       ansible.builtin.copy:
         content: |
           service-db:keyfile/user
