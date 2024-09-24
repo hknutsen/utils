@@ -2,13 +2,13 @@
   hosts: localhost
   become: true
   tasks:
-    # Configure hostname:
+    # Configure hostname.
     - name: Configure Hostname
       ansible.builtin.hostname:
         name: henrik-desktop
         use: systemd
 
-    # Mount disks:
+    # Mount disks.
     - name: Mount Data Disk
       ansible.posix.mount:
         src: LABEL=Data
@@ -24,11 +24,9 @@
         opts: nosuid,nodev,nofail,x-gvfs-show
         state: mounted
 
-    # Configure GNOME (desktop environment):
-    #
-    # Tell dconf to synchronize the binary database with a plain text keyfile in
-    # ~/.config/dconf/user.txt. This allows us to backup and restore our GNOME
-    # settings using deja-dup.
+    # Configure GNOME (desktop environment).
+    # Tell dconf to synchronize the binary database with a plain text keyfile in ~/.config/dconf/user.txt.
+    # This allows us to backup and restore our GNOME settings using deja-dup.
     # Ref: https://wiki.gnome.org/Projects/dconf/SystemAdministrators
     - name: Configure GNOME User Profile
       ansible.builtin.copy:
