@@ -39,3 +39,4 @@
           system-db:site
           system-db:distro
         dest: /etc/dconf/profile/user
+        mode: preserve
