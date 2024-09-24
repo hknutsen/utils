@@ -3,7 +3,17 @@
   become: true
   tasks:
     # Enable RPM Fusion repositories
-    # Ref: https://rpmfusion.org/Configuration
+    # Refs:
+    # - https://rpmfusion.org/keys
+    # - https://rpmfusion.org/Configuration
+    - name: Import FPM Fusion free GPG key
+      ansible.builtin.rpm_key:
+        key: /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_major_version }}
+        state: present
+    - name: Import FPM Fusion nonfree GPG key
+      ansible.builtin.rpm_key:
+        key: /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_major_version }}
+        state: present
     - name: Enable RPM Fusion free repository
       ansible.builtin.dnf:
         name: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
