@@ -16,7 +16,7 @@ My scripts and playbooks for automating tasks on Fedora Linux.
     git clone https://github.com/hknutsen/fedora-workstation.git && cd fedora-workstation
     ```
 
-1. Run a script from this repository.
+1. Run a script or playbook from this repository.
 
 ## System specifications
 
