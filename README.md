@@ -1,4 +1,4 @@
-# Fedora Workstation
+# Henrik's Fedora Workstation
 
 My scripts and playbooks for automating tasks on Fedora Linux.
 
