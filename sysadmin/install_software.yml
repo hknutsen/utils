@@ -192,6 +192,12 @@
         name: com.bitwarden.desktop
         state: present
 
+    - name: Install Spotify
+      community.general.flatpak:
+        remote: flathub
+        name: com.spotify.Client
+        state: present
+
     - name: Install Discord
       community.general.flatpak:
         remote: flathub
