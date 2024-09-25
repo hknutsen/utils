@@ -1,6 +1,6 @@
-# Henrik's utility scripts
+# Fedora Workstation
 
-My utility scripts for automating tasks on Fedora Linux.
+My scripts and playbooks for automating tasks on Fedora Linux.
 
 ## Usage
 
@@ -13,7 +13,7 @@ My utility scripts for automating tasks on Fedora Linux.
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/hknutsen/utils.git && cd utils
+    git clone https://github.com/hknutsen/fedora-workstation.git && cd fedora-workstation
     ```
 
 1. Run a script from this repository.
