@@ -125,6 +125,11 @@
         name: gh
         state: present
 
+    - name: Install Ansible
+      ansible.builtin.dnf:
+        name: ansible
+        state: present
+
     - name: Install Ansible-lint
       ansible.builtin.dnf:
         name: ansible-lint
