@@ -135,6 +135,11 @@
         name: ansible-lint
         state: present
 
+    - name: Install Podman
+      ansible.builtin.dnf:
+        name: podman
+        state: present
+
     - name: Install OpenTofu
       ansible.builtin.dnf:
         name: opentofu
