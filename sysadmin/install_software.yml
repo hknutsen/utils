@@ -85,10 +85,15 @@
         name: deja-dup
         state: present
 
+    - name: Install Geary
+      ansible.builtin.dnf:
+        name: geary
+        state: present
+
     - name: Install Thunderbird
       ansible.builtin.dnf:
         name: thunderbird
-        state: present
+        state: absent
 
     - name: Install Tor Browser
       ansible.builtin.dnf:
