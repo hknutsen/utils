@@ -29,6 +29,7 @@ This directory contains scripts and playbooks for configuration, operation and u
     ansible-playbook -K install_software.yml
     ```
 
+1. Wait up to 5 minutes for the NVIDIA kernel module to finish building.
 1. Restart your computer to finish installation of NVIDIA drivers.
 1. Configure system:
 
