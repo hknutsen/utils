@@ -85,9 +85,9 @@
         name: deja-dup
         state: present
 
-    - name: Install Geary
+    - name: Install Thunderbird
       ansible.builtin.dnf:
-        name: geary
+        name: thunderbird
         state: present
 
     - name: Install Tor Browser
