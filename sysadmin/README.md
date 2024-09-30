@@ -4,6 +4,12 @@ This directory contains scripts and playbooks for configuration, operation and u
 
 ## Prerequisites
 
+1. Update system software:
+
+    ```bash
+    sudo dnf upgrade
+    ```
+
 1. Install Ansible:
 
     ```bash
