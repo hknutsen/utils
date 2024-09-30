@@ -7,7 +7,7 @@ This directory contains scripts and playbooks for configuration, operation and u
 1. Update system software:
 
     ```bash
-    sudo dnf upgrade
+    sudo dnf upgrade --refresh
     ```
 
 1. Install Ansible:
