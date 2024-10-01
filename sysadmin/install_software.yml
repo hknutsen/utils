@@ -116,6 +116,11 @@
         name: google-chrome-stable
         state: present
 
+    - name: Install Emacs
+      ansible.builtin.dnf:
+        name: emacs
+        state: present
+
     - name: Install Visual Studio Code
       ansible.builtin.dnf:
         name: code
