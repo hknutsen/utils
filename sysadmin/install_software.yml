@@ -99,6 +99,7 @@
       ansible.builtin.dnf:
         name: akmod-nvidia
         state: present
+      register: install_nvidia_driver
 
     - name: Install CUDA Driver
       ansible.builtin.dnf:
@@ -214,3 +215,10 @@
         remote: flathub
         name: com.mojang.Minecraft
         state: present
+
+    # Wait until NVIDIA kernel module has been built.
+    # This can take up to 5 minutes on some systems.
+    - name: Wait Until NVIDIA Kernel Module Has Been Built
+      ansible.builtin.wait_for:
+        timeout: 300 # 5 minutes
+      when: install_nvidia_driver.changed
