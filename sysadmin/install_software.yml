@@ -87,14 +87,14 @@
         name: gnome-extensions-app
         state: present
 
+    - name: Install Geary
+      ansible.builtin.dnf:
+        name: geary
+        state: present
+
     - name: Install Deja Dup Backups
       ansible.builtin.dnf:
         name: deja-dup
-        state: present
-
-    - name: Install Thunderbird
-      ansible.builtin.dnf:
-        name: thunderbird
         state: present
 
     - name: Install Tor Browser
