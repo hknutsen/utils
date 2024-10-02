@@ -38,3 +38,9 @@
           system-db:distro
         dest: /etc/dconf/profile/user
         mode: u=rw,g=r,o=r
+
+    # Configure Docker daemon to start at boot.
+    - name: Configure Docker Daemon
+      ansible.builtin.systemd_service:
+        name: docker
+        enabled: true
