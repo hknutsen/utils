@@ -69,6 +69,13 @@
         gpgcheck: true
         gpgkey: https://packages.microsoft.com/keys/microsoft.asc
 
+    # Install Docker Engine repository.
+    # Ref: https://docs.docker.com/engine/install/fedora/
+    - name: Install Docker Engine Repository
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
     # Install packages.
     - name: Install GNOME Tweaks
       ansible.builtin.dnf:
@@ -139,6 +146,16 @@
     - name: Install Ansible-lint
       ansible.builtin.dnf:
         name: ansible-lint
+        state: present
+
+    - name: Install Docker Engine
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
         state: present
 
     - name: Install Podman
