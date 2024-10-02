@@ -44,3 +44,11 @@
       ansible.builtin.systemd_service:
         name: docker
         enabled: true
+
+    # Add user to Docker group.
+    # This allows user to run Docker commands without sudo.
+    - name: Add User to Docker Group
+      ansible.builtin.user:
+        name: hknutsen # TODO(@hknutsen): set dynamically
+        groups: docker
+        append: true
