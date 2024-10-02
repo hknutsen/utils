@@ -168,6 +168,12 @@
         name: opentofu
         state: present
 
+    # Ref: https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
+    - name: Install Multimedia Libraries
+      ansible.builtin.dnf:
+        name: '@Multimedia'
+        state: present
+
     - name: Remove Rhythmbox
       ansible.builtin.dnf:
         name: rhythmbox
