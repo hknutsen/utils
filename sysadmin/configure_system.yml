@@ -1,12 +1,12 @@
 - name: Configure System
   hosts: localhost
-  become: true
   tasks:
     # Configure hostname.
     - name: Configure Hostname
       ansible.builtin.hostname:
         name: henrik-desktop
         use: systemd
+      become: true
 
     # Mount disks.
     - name: Mount Data Disk
@@ -16,6 +16,7 @@
         fstype: auto
         opts: nosuid,nodev,nofail,x-gvfs-show
         state: mounted
+      become: true
     - name: Mount Backup Disk
       ansible.posix.mount:
         src: LABEL=Backup
@@ -23,6 +24,7 @@
         fstype: auto
         opts: nosuid,nodev,nofail,x-gvfs-show
         state: mounted
+      become: true
 
     # Configure GNOME (desktop environment).
     # Tell dconf to synchronize the binary database with a plain text keyfile in ~/.config/dconf/user.txt.
@@ -38,17 +40,20 @@
           system-db:distro
         dest: /etc/dconf/profile/user
         mode: u=rw,g=r,o=r
+      become: true
 
     # Configure Docker daemon to start at boot.
     - name: Configure Docker Daemon
       ansible.builtin.systemd_service:
         name: docker
         enabled: true
+      become: true
 
     # Add user to Docker group.
     # This allows user to run Docker commands without sudo.
     - name: Add User to Docker Group
       ansible.builtin.user:
-        name: hknutsen # TODO(@hknutsen): set dynamically
+        name: '{{ ansible_user_id }}'
         groups: docker
         append: true
+      become: true
