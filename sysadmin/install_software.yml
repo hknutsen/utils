@@ -166,11 +166,6 @@
           - docker-compose-plugin
         state: present
 
-    - name: Install Podman
-      ansible.builtin.dnf:
-        name: podman
-        state: present
-
     - name: Install Terraform
       ansible.builtin.dnf:
         name: terraform
