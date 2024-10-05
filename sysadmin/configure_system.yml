@@ -53,7 +53,7 @@
     # This allows user to run Docker commands without sudo.
     - name: Add User to Docker Group
       ansible.builtin.user:
-        name: '{{ ansible_user_id }}'
+        name: "{{ ansible_user_id }}"
         groups: docker
         append: true
       become: true
