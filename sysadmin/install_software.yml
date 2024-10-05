@@ -76,6 +76,14 @@
         url: https://download.docker.com/linux/fedora/docker-ce.repo
         dest: /etc/yum.repos.d/docker-ce.repo
 
+    # Install HashiCorp repository.
+    # Required for installing Terraform.
+    # Ref: https://developer.hashicorp.com/terraform/install
+    - name: Install HashiCorp Repository
+      ansible.builtin.get_url:
+        url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+        dest: /etc/yum.repos.d/hashicorp.repo
+
     # Install packages.
     - name: Install GNOME Tweaks
       ansible.builtin.dnf:
@@ -166,6 +174,11 @@
     - name: Install OpenTofu
       ansible.builtin.dnf:
         name: opentofu
+        state: absent
+
+    - name: Install Terraform
+      ansible.builtin.dnf:
+        name: terraform
         state: present
 
     # Ref: https://docs.fedoraproject.org/en-US/quick-docs/installing-plugins-for-playing-movies-and-music/
