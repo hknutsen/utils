@@ -171,11 +171,6 @@
         name: podman
         state: present
 
-    - name: Install OpenTofu
-      ansible.builtin.dnf:
-        name: opentofu
-        state: absent
-
     - name: Install Terraform
       ansible.builtin.dnf:
         name: terraform
