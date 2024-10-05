@@ -108,7 +108,7 @@
     - name: Install Tor Browser
       ansible.builtin.dnf:
         name: torbrowser-launcher
-        state: present
+        state: absent
 
     - name: Install NVIDIA Driver
       ansible.builtin.dnf:
