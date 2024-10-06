@@ -53,6 +53,7 @@
         state: enabled
 
     # Install Visual Studio Code repository.
+    # Required for installing Visual Studio Code.
     # Ref: https://code.visualstudio.com/docs/setup/linux
     - name: Import Microsoft GPG Key
       ansible.builtin.rpm_key:
@@ -72,6 +73,7 @@
         mode: u=rw,g=r,o=r
 
     # Install Docker Engine repository.
+    # Required for installing Docker Engine.
     # Ref: https://docs.docker.com/engine/install/fedora/
     - name: Install Docker Engine Repository
       ansible.builtin.get_url:
