@@ -69,6 +69,7 @@
           gpgcheck=1
           gpgkey=https://packages.microsoft.com/keys/microsoft.asc
         dest: /etc/yum.repos.d/vscode.repo
+        mode: u=rw,g=r,o=r
 
     # Install Docker Engine repository.
     # Ref: https://docs.docker.com/engine/install/fedora/
@@ -76,6 +77,7 @@
       ansible.builtin.get_url:
         url: https://download.docker.com/linux/fedora/docker-ce.repo
         dest: /etc/yum.repos.d/docker-ce.repo
+        mode: u=rw,g=r,o=r
 
     # Install HashiCorp repository.
     # Required for installing Terraform.
@@ -84,6 +86,7 @@
       ansible.builtin.get_url:
         url: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
         dest: /etc/yum.repos.d/hashicorp.repo
+        mode: u=rw,g=r,o=r
 
     # Install packages.
     - name: Install GNOME Tweaks
@@ -110,7 +113,8 @@
       ansible.builtin.dnf:
         name: akmod-nvidia
         state: present
-      register: install_nvidia_driver
+      notify:
+        - Wait Until NVIDIA Kernel Module Has Been Built
 
     - name: Install CUDA Driver
       ansible.builtin.dnf:
@@ -243,9 +247,9 @@
         name: com.mojang.Minecraft
         state: present
 
+  handlers:
     # Wait until NVIDIA kernel module has been built.
     # This can take up to 5 minutes on some systems.
     - name: Wait Until NVIDIA Kernel Module Has Been Built
       ansible.builtin.wait_for:
         timeout: 300 # 5 minutes
-      when: install_nvidia_driver.changed
