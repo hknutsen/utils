@@ -60,14 +60,15 @@
         state: present
 
     - name: Install Visual Studio Code Repository
-      ansible.builtin.yum_repository:
-        name: code
-        description: Visual Studio Code
-        file: vscode
-        baseurl: https://packages.microsoft.com/yumrepos/vscode
-        enabled: true
-        gpgcheck: true
-        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+      ansible.builtin.copy:
+        content: |
+          [code]
+          name=Visual Studio Code
+          baseurl=https://packages.microsoft.com/yumrepos/vscode
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+        dest: /etc/yum.repos.d/vscode.repo
 
     # Install Docker Engine repository.
     # Ref: https://docs.docker.com/engine/install/fedora/
