@@ -148,11 +148,6 @@
         name: gh
         state: present
 
-    - name: Install Azure CLI
-      ansible.builtin.dnf:
-        name: azure-cli
-        state: present
-
     - name: Install Ansible
       ansible.builtin.dnf:
         name: ansible
@@ -171,6 +166,11 @@
           - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
+        state: present
+
+    - name: Install Azure CLI
+      ansible.builtin.dnf:
+        name: azure-cli
         state: present
 
     - name: Install Terraform
